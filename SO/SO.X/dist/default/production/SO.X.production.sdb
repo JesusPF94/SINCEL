@@ -1,0 +1,412 @@
+[p LITE_MODE AUTOSTATIC LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F4550 ]
+[d frameptr 4065 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"54 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"20 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 3 0 ]
+"10 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 3 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 3 0 ]
+"11 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 3 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 3 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v1.36\sources\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"86 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _FunctionE FunctionE `(v  1 e 1 0 ]
+"96
+[v _FunctionD FunctionD `(v  1 e 1 0 ]
+"106
+[v _FunctionC FunctionC `(v  1 e 1 0 ]
+"118
+[v _FunctionB FunctionB `(v  1 e 1 0 ]
+"135
+[v _FunctionA FunctionA `(v  1 e 1 0 ]
+"164
+[v _High_Priority_Interrupt High_Priority_Interrupt `IIH(v  1 e 1 0 ]
+"182
+[v _PWM_init PWM_init `(v  1 e 1 0 ]
+"187
+[v _PWM1 PWM1 `(v  1 e 1 0 ]
+"203
+[v _PWM2 PWM2 `(v  1 e 1 0 ]
+"217
+[v _PWM3 PWM3 `(v  1 e 1 0 ]
+"231
+[v _PWM4 PWM4 `(v  1 e 1 0 ]
+"245
+[v _PWM5 PWM5 `(v  1 e 1 0 ]
+"259
+[v _PWM6 PWM6 `(v  1 e 1 0 ]
+"273
+[v _PWM_activator PWM_activator `(v  1 e 1 0 ]
+"284
+[v _Low_Priority_Interrupt Low_Priority_Interrupt `IIL(v  1 e 1 0 ]
+"294
+[v _main main `(v  1 e 1 0 ]
+"75 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _mailBox_init_conection mailBox_init_conection `(v  1 e 1 0 ]
+"92
+[v _WritingMailBox WritingMailBox `(v  1 e 1 0 ]
+"129
+[v _ReadingMailBox ReadingMailBox `(v  1 e 1 0 ]
+"169
+[v _waitForBuffer waitForBuffer `(v  1 e 1 0 ]
+"180
+[v _DoneWritting DoneWritting `(v  1 e 1 0 ]
+"194
+[v _DoneReading DoneReading `(v  1 e 1 0 ]
+"208
+[v _vTaskDelay vTaskDelay `(v  1 e 1 0 ]
+"223
+[v _reductionTime reductionTime `(i  1 e 2 0 ]
+"243
+[v _saveInterruptedState saveInterruptedState `(i  1 e 2 0 ]
+"262
+[v _xTaskCreate xTaskCreate `(v  1 e 1 0 ]
+"286
+[v _xInterruptTaskCreate xInterruptTaskCreate `(v  1 e 1 0 ]
+"318
+[v _vTaskDelete vTaskDelete `(v  1 e 1 0 ]
+"331
+[v _OSInit OSInit `(v  1 e 1 0 ]
+"359
+[v _OSRun OSRun `(v  1 e 1 0 ]
+"3369 C:\Program Files (x86)\Microchip\xc8\v1.36\include\pic18f4550.h
+[v _LATB LATB `VEuc  1 e 1 @3978 ]
+[s S87 . 1 `uc 1 LATB0 1 0 :1:0 
+`uc 1 LATB1 1 0 :1:1 
+`uc 1 LATB2 1 0 :1:2 
+`uc 1 LATB3 1 0 :1:3 
+`uc 1 LATB4 1 0 :1:4 
+`uc 1 LATB5 1 0 :1:5 
+`uc 1 LATB6 1 0 :1:6 
+`uc 1 LATB7 1 0 :1:7 
+]
+"3417
+[s S96 . 1 `uc 1 LB0 1 0 :1:0 
+]
+[s S98 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 LB1 1 0 :1:1 
+]
+[s S101 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 LB2 1 0 :1:2 
+]
+[s S104 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 LB3 1 0 :1:3 
+]
+[s S107 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 LB4 1 0 :1:4 
+]
+[s S110 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 LB5 1 0 :1:5 
+]
+[s S113 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 LB6 1 0 :1:6 
+]
+[s S116 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 LB7 1 0 :1:7 
+]
+[u S119 . 1 `S87 1 . 1 0 `S96 1 . 1 0 `S98 1 . 1 0 `S101 1 . 1 0 `S104 1 . 1 0 `S107 1 . 1 0 `S110 1 . 1 0 `S113 1 . 1 0 `S116 1 . 1 0 ]
+[v _LATBbits LATBbits `VES119  1 e 1 @3978 ]
+"3975
+[v _TRISB TRISB `VEuc  1 e 1 @3987 ]
+"8361
+[v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
+"8443
+[v _T0CON T0CON `VEuc  1 e 1 @4053 ]
+[s S264 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"8463
+[s S271 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+]
+[u S275 . 1 `S264 1 . 1 0 `S271 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES275  1 e 1 @4053 ]
+"8530
+[v _STATUS STATUS `VEuc  1 e 1 @4056 ]
+"8656
+[v _BSR BSR `VEuc  1 e 1 @4064 ]
+"8710
+[v _WREG WREG `VEuc  1 e 1 @4072 ]
+"8931
+[v _INTCON INTCON `VEuc  1 e 1 @4082 ]
+"9130
+[v _STKPTR STKPTR `VEuc  1 e 1 @4092 ]
+"9204
+[v _TOS TOS `VEum  1 e 3 @4093 ]
+"9211
+[v _TOSL TOSL `VEuc  1 e 1 @4093 ]
+"9217
+[v _TOSH TOSH `VEuc  1 e 1 @4094 ]
+"9223
+[v _TOSU TOSU `VEuc  1 e 1 @4095 ]
+"9793
+[v _GIE GIE `VEb  1 e 0 @32663 ]
+"9849
+[v _INT0IE INT0IE `VEb  1 e 0 @32660 ]
+"9851
+[v _INT0IF INT0IF `VEb  1 e 0 @32657 ]
+"10145
+[v _PEIE PEIE `VEb  1 e 0 @32662 ]
+"10507
+[v _TMR0IE TMR0IE `VEb  1 e 0 @32661 ]
+"10509
+[v _TMR0IF TMR0IF `VEb  1 e 0 @32658 ]
+"10513
+[v _TMR0ON TMR0ON `VEb  1 e 0 @32431 ]
+"77 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _y y `*.2VEul  1 s 2 y ]
+[v _z z `*.2VEul  1 s 2 z ]
+"78
+[v _x x `VEul  1 s 4 x ]
+"79
+[v _dutyCycle1 dutyCycle1 `uc  1 s 1 dutyCycle1 ]
+"80
+[v _dutyCycle2 dutyCycle2 `uc  1 s 1 dutyCycle2 ]
+"81
+[v _dutyCycle3 dutyCycle3 `uc  1 s 1 dutyCycle3 ]
+"82
+[v _dutyCycle4 dutyCycle4 `uc  1 s 1 dutyCycle4 ]
+"83
+[v _dutyCycle5 dutyCycle5 `uc  1 s 1 dutyCycle5 ]
+"84
+[v _dutyCycle6 dutyCycle6 `uc  1 s 1 dutyCycle6 ]
+"3 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _taskPosition taskPosition `uc  1 s 1 taskPosition ]
+"4
+[v _actualPosition actualPosition `uc  1 s 1 actualPosition ]
+"8
+[v _schedulerStatus schedulerStatus `uc  1 s 1 schedulerStatus ]
+"11
+[v _i i `uc  1 s 1 i ]
+"12
+[v _i_mic i_mic `uc  1 s 1 i_mic ]
+"13
+[v _i_wmb i_wmb `uc  1 s 1 i_wmb ]
+"14
+[v _i_rmb i_rmb `uc  1 s 1 i_rmb ]
+"15
+[v _i_dw i_dw `uc  1 s 1 i_dw ]
+"16
+[v _i_dr i_dr `uc  1 s 1 i_dr ]
+"18
+[v _index index `uc  1 s 1 index ]
+"19
+[v _index_mic index_mic `uc  1 s 1 index_mic ]
+"20
+[v _index_wmb index_wmb `uc  1 s 1 index_wmb ]
+"21
+[v _index_rmb index_rmb `uc  1 s 1 index_rmb ]
+"22
+[v _index_dw index_dw `uc  1 s 1 index_dw ]
+"23
+[v _index_dr index_dr `uc  1 s 1 index_dr ]
+"25
+[v _minPrior minPrior `uc  1 s 1 minPrior ]
+"26
+[v _cont cont `uc  1 s 1 cont ]
+[s S218 Task 21 `uc 1 Add1 1 0 `uc 1 Add2 1 1 `uc 1 Add3 1 2 `uc 1 state 1 3 `uc 1 Id 1 4 `uc 1 Priority 1 5 `uc 1 currentAdd1 1 6 `uc 1 currentAdd2 1 7 `uc 1 currentAdd3 1 8 `uc 1 backupStatus 1 9 `uc 1 backupWreg 1 10 `uc 1 backupBsr 1 11 `ui 1 DelayTime 2 12 `uc 1 Delayed 1 14 `uc 1 WaitMessage 1 15 `uc 1 MessageWritter 1 16 `uc 1 MessageReader 1 17 `uc 1 MessageData 1 18 `uc 1 readInterruptedIndex 1 19 `uc 1 writeInterruptedIndex 1 20 ]
+"60
+[v _TaskArray TaskArray `[11]S218  1 e 231 0 ]
+[s S239 MailBox 8 `uc 1 Reader 1 0 `uc 1 Writer 1 1 `uc 1 Available 1 2 `uc 1 Data 1 3 `uc 1 WriterDone 1 4 `uc 1 ReaderDone 1 5 `uc 1 Connected 1 6 `uc 1 ActualConection 1 7 ]
+"73
+[v _MailBoxArray MailBoxArray `[11]S239  1 e 88 0 ]
+"117 C:\Users\Especial\Desktop\embebids\SO.X\Structure.h
+[v Structure@s_STATUSBackup s_STATUSBackup `uc  1 s 1 s_STATUSBackup ]
+"118
+[v Structure@s_WREGBackup s_WREGBackup `uc  1 s 1 s_WREGBackup ]
+"119
+[v Structure@s_BSRBackup s_BSRBackup `uc  1 s 1 s_BSRBackup ]
+"294 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"317
+} 0
+"331 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _OSInit OSInit `(v  1 e 1 0 ]
+{
+"356
+} 0
+"284 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _Low_Priority_Interrupt Low_Priority_Interrupt `IIL(v  1 e 1 0 ]
+{
+"292
+} 0
+"182
+[v _PWM_init PWM_init `(v  1 e 1 0 ]
+{
+"185
+} 0
+"273
+[v _PWM_activator PWM_activator `(v  1 e 1 0 ]
+{
+"282
+} 0
+"259
+[v _PWM6 PWM6 `(v  1 e 1 0 ]
+{
+"271
+} 0
+"245
+[v _PWM5 PWM5 `(v  1 e 1 0 ]
+{
+"257
+} 0
+"231
+[v _PWM4 PWM4 `(v  1 e 1 0 ]
+{
+"243
+} 0
+"217
+[v _PWM3 PWM3 `(v  1 e 1 0 ]
+{
+"229
+} 0
+"203
+[v _PWM2 PWM2 `(v  1 e 1 0 ]
+{
+"215
+} 0
+"187
+[v _PWM1 PWM1 `(v  1 e 1 0 ]
+{
+"201
+} 0
+"86
+[v _FunctionE FunctionE `(v  1 e 1 0 ]
+{
+"94
+} 0
+"96
+[v _FunctionD FunctionD `(v  1 e 1 0 ]
+{
+"104
+} 0
+"208 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _vTaskDelay vTaskDelay `(v  1 e 1 0 ]
+{
+[v vTaskDelay@delayms delayms `ui  1 p 2 21 ]
+"221
+} 0
+"106 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _FunctionC FunctionC `(v  1 e 1 0 ]
+{
+"116
+} 0
+"118
+[v _FunctionB FunctionB `(v  1 e 1 0 ]
+{
+"133
+} 0
+"129 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _ReadingMailBox ReadingMailBox `(v  1 e 1 0 ]
+{
+[v ReadingMailBox@writter writter `uc  1 a 1 wreg ]
+[v ReadingMailBox@writter writter `uc  1 a 1 wreg ]
+[v ReadingMailBox@r r `*.2ul  1 p 2 21 ]
+[v ReadingMailBox@writter writter `uc  1 a 1 28 ]
+"167
+} 0
+"180
+[v _DoneWritting DoneWritting `(v  1 e 1 0 ]
+{
+[v DoneWritting@reader reader `uc  1 a 1 wreg ]
+[v DoneWritting@reader reader `uc  1 a 1 wreg ]
+[v DoneWritting@reader reader `uc  1 a 1 21 ]
+"192
+} 0
+"135 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _FunctionA FunctionA `(v  1 e 1 0 ]
+{
+"159
+} 0
+"262 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _xTaskCreate xTaskCreate `(v  1 e 1 0 ]
+{
+[v xTaskCreate@pvTaskCode pvTaskCode `ul  1 p 4 21 ]
+[v xTaskCreate@Id Id `uc  1 p 1 25 ]
+[v xTaskCreate@Prior Prior `uc  1 p 1 26 ]
+"284
+} 0
+"318
+[v _vTaskDelete vTaskDelete `(v  1 e 1 0 ]
+{
+"329
+} 0
+"75
+[v _mailBox_init_conection mailBox_init_conection `(v  1 e 1 0 ]
+{
+[v mailBox_init_conection@reader reader `uc  1 a 1 wreg ]
+[v mailBox_init_conection@reader reader `uc  1 a 1 wreg ]
+[v mailBox_init_conection@writer writer `uc  1 p 1 20 ]
+[v mailBox_init_conection@reader reader `uc  1 a 1 21 ]
+"88
+} 0
+"92
+[v _WritingMailBox WritingMailBox `(v  1 e 1 0 ]
+{
+[v WritingMailBox@data data `uc  1 a 1 wreg ]
+[v WritingMailBox@data data `uc  1 a 1 wreg ]
+[v WritingMailBox@reader reader `uc  1 p 1 21 ]
+[v WritingMailBox@data data `uc  1 a 1 25 ]
+"127
+} 0
+"169
+[v _waitForBuffer waitForBuffer `(v  1 e 1 0 ]
+{
+"178
+} 0
+"359
+[v _OSRun OSRun `(v  1 e 1 0 ]
+{
+"397
+} 0
+"194
+[v _DoneReading DoneReading `(v  1 e 1 0 ]
+{
+[v DoneReading@writter writter `uc  1 a 1 wreg ]
+[v DoneReading@writter writter `uc  1 a 1 wreg ]
+[v DoneReading@writter writter `uc  1 a 1 21 ]
+"206
+} 0
+"164 C:\Users\Especial\Desktop\embebids\SO.X\main.c
+[v _High_Priority_Interrupt High_Priority_Interrupt `IIH(v  1 e 1 0 ]
+{
+"178
+} 0
+"286 C:\Users\Especial\Desktop\embebids\SO.X\Structure.c
+[v _xInterruptTaskCreate xInterruptTaskCreate `(v  1 e 1 0 ]
+{
+[v xInterruptTaskCreate@pvTaskCode pvTaskCode `ul  1 p 4 0 ]
+[v xInterruptTaskCreate@Id Id `uc  1 p 1 4 ]
+[v xInterruptTaskCreate@Prior Prior `uc  1 p 1 5 ]
+"315
+} 0
+"243
+[v _saveInterruptedState saveInterruptedState `(i  1 e 2 0 ]
+{
+"260
+} 0
+"223
+[v _reductionTime reductionTime `(i  1 e 2 0 ]
+{
+"241
+} 0
