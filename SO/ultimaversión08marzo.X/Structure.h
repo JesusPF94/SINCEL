@@ -112,6 +112,7 @@ void DoneWritting(unsigned char reader);
 
 void DoneReading(unsigned char writter);
 
+char mailBoxHasData(char mailboxIndex);
 
     static char s_STATUSBackup=255;
     static char s_WREGBackup=255;

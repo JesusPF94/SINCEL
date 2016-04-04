@@ -29,38 +29,40 @@
 [v _ports_Init ports_Init `(v  1 e 0 0 ]
 "97
 [v _RX1 RX1 `(v  1 e 0 0 ]
-"124
+"125
 [v _PWM1 PWM1 `(v  1 e 0 0 ]
-"144
+"149
 [v _High_Priority_Interrupt High_Priority_Interrupt `IIH(v  1 e 0 0 ]
-"155
+"160
 [v _Low_Priority_Interrupt Low_Priority_Interrupt `IIL(v  1 e 0 0 ]
-"178
+"183
 [v _main main `(v  1 e 0 0 ]
-"75 C:\Users\David\Desktop\2deabril.X\Structure.c
+"78 C:\Users\David\Desktop\2deabril.X\Structure.c
 [v _mailBox_init_conection mailBox_init_conection `(v  1 e 0 0 ]
-"92
+"94
+[v _mailBoxHasData mailBoxHasData `(uc  1 e 1 0 ]
+"98
 [v _WritingMailBox WritingMailBox `(v  1 e 0 0 ]
-"127
+"133
 [v _ReadingMailBox ReadingMailBox `(v  1 e 0 0 ]
-"166
+"175
 [v _waitForBuffer waitForBuffer `(v  1 e 0 0 ]
-"205
+"214
 [v _vTaskDelay vTaskDelay `(v  1 e 0 0 ]
-"222
+"231
 [v _reductionTime reductionTime `(i  1 e 2 0 ]
-"243
+"252
 [v _saveInterruptedState saveInterruptedState `(i  1 e 2 0 ]
 [v i2_saveInterruptedState saveInterruptedState `(i  1 e 2 0 ]
-"262
+"271
 [v _xTaskCreate xTaskCreate `(v  1 e 0 0 ]
-"287
+"296
 [v _xInterruptTaskCreate xInterruptTaskCreate `(v  1 e 0 0 ]
-"320
+"329
 [v _vTaskDelete vTaskDelete `(v  1 e 0 0 ]
-"334
+"343
 [v _OSInit OSInit `(v  1 e 0 0 ]
-"389
+"398
 [v _OSRun OSRun `(v  1 e 0 0 ]
 [s S243 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
@@ -101,7 +103,7 @@
 "4205
 [u S252 . 1 `S234 1 . 1 0 `S243 1 . 1 0 ]
 [v _TRISBbits TRISBbits `VES252  1 e 1 @3987 ]
-[s S761 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[s S767 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSPIE 1 0 :1:3 
@@ -111,18 +113,18 @@
 `uc 1 SPPIE 1 0 :1:7 
 ]
 "4974
-[s S770 . 1 `uc 1 . 1 0 :7:0 
+[s S776 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 PSPIE 1 0 :1:7 
 ]
-[s S773 . 1 `uc 1 . 1 0 :5:0 
+[s S779 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RC1IE 1 0 :1:5 
 ]
-[s S776 . 1 `uc 1 . 1 0 :4:0 
+[s S782 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IE 1 0 :1:4 
 ]
-[u S779 . 1 `S761 1 . 1 0 `S770 1 . 1 0 `S773 1 . 1 0 `S776 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES779  1 e 1 @3997 ]
-[s S719 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S785 . 1 `S767 1 . 1 0 `S776 1 . 1 0 `S779 1 . 1 0 `S782 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES785  1 e 1 @3997 ]
+[s S725 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -132,17 +134,17 @@
 `uc 1 SPPIF 1 0 :1:7 
 ]
 "5062
-[s S728 . 1 `uc 1 . 1 0 :7:0 
+[s S734 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 PSPIF 1 0 :1:7 
 ]
-[s S731 . 1 `uc 1 . 1 0 :5:0 
+[s S737 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RC1IF 1 0 :1:5 
 ]
-[s S734 . 1 `uc 1 . 1 0 :4:0 
+[s S740 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IF 1 0 :1:4 
 ]
-[u S737 . 1 `S719 1 . 1 0 `S728 1 . 1 0 `S731 1 . 1 0 `S734 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES737  1 e 1 @3998 ]
+[u S743 . 1 `S725 1 . 1 0 `S734 1 . 1 0 `S737 1 . 1 0 `S740 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES743  1 e 1 @3998 ]
 [s S187 . 1 `uc 1 PCFG 1 0 :4:0 
 `uc 1 VCFG 1 0 :2:4 
 ]
@@ -167,11 +169,11 @@
 [v _ADCON1bits ADCON1bits `VES206  1 e 1 @4033 ]
 "8023
 [v _T1CON T1CON `VEuc  1 e 1 @4045 ]
-[s S630 . 1 `uc 1 . 1 0 :2:0 
+[s S636 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_T1SYNC 1 0 :1:2 
 ]
 "8058
-[s S633 . 1 `uc 1 TMR1ON 1 0 :1:0 
+[s S639 . 1 `uc 1 TMR1ON 1 0 :1:0 
 `uc 1 TMR1CS 1 0 :1:1 
 `uc 1 nT1SYNC 1 0 :1:2 
 `uc 1 T1OSCEN 1 0 :1:3 
@@ -179,40 +181,40 @@
 `uc 1 T1RUN 1 0 :1:6 
 `uc 1 RD16 1 0 :1:7 
 ]
-[s S641 . 1 `uc 1 . 1 0 :2:0 
+[s S647 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 T1SYNC 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
 `uc 1 T1CKPS0 1 0 :1:4 
 `uc 1 T1CKPS1 1 0 :1:5 
 ]
-[s S647 . 1 `uc 1 . 1 0 :3:0 
+[s S653 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SOSCEN 1 0 :1:3 
 ]
-[s S650 . 1 `uc 1 . 1 0 :7:0 
+[s S656 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 T1RD16 1 0 :1:7 
 ]
-[u S653 . 1 `S630 1 . 1 0 `S633 1 . 1 0 `S641 1 . 1 0 `S647 1 . 1 0 `S650 1 . 1 0 ]
-[v _T1CONbits T1CONbits `VES653  1 e 1 @4045 ]
+[u S659 . 1 `S636 1 . 1 0 `S639 1 . 1 0 `S647 1 . 1 0 `S653 1 . 1 0 `S656 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES659  1 e 1 @4045 ]
 "8133
 [v _TMR1L TMR1L `VEuc  1 e 1 @4046 ]
 "8139
 [v _TMR1H TMR1H `VEuc  1 e 1 @4047 ]
-[s S374 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+[s S379 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "8194
-[s S376 . 1 `uc 1 . 1 0 :1:0 
+[s S381 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_POR 1 0 :1:1 
 ]
-[s S379 . 1 `uc 1 . 1 0 :2:0 
+[s S384 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_PD 1 0 :1:2 
 ]
-[s S382 . 1 `uc 1 . 1 0 :3:0 
+[s S387 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_TO 1 0 :1:3 
 ]
-[s S385 . 1 `uc 1 . 1 0 :4:0 
+[s S390 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 NOT_RI 1 0 :1:4 
 ]
-[s S388 . 1 `uc 1 nBOR 1 0 :1:0 
+[s S393 . 1 `uc 1 nBOR 1 0 :1:0 
 `uc 1 nPOR 1 0 :1:1 
 `uc 1 nPD 1 0 :1:2 
 `uc 1 nTO 1 0 :1:3 
@@ -221,10 +223,10 @@
 `uc 1 SBOREN 1 0 :1:6 
 `uc 1 IPEN 1 0 :1:7 
 ]
-[s S397 . 1 `uc 1 . 1 0 :7:0 
+[s S402 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 NOT_IPEN 1 0 :1:7 
 ]
-[s S400 . 1 `uc 1 BOR 1 0 :1:0 
+[s S405 . 1 `uc 1 BOR 1 0 :1:0 
 `uc 1 POR 1 0 :1:1 
 `uc 1 PD 1 0 :1:2 
 `uc 1 TO 1 0 :1:3 
@@ -232,16 +234,16 @@
 `uc 1 . 1 0 :2:5 
 `uc 1 nIPEN 1 0 :1:7 
 ]
-[u S408 . 1 `S374 1 . 1 0 `S376 1 . 1 0 `S379 1 . 1 0 `S382 1 . 1 0 `S385 1 . 1 0 `S388 1 . 1 0 `S397 1 . 1 0 `S400 1 . 1 0 ]
-[v _RCONbits RCONbits `VES408  1 e 1 @4048 ]
-[s S684 . 1 `uc 1 SCS 1 0 :2:0 
+[u S413 . 1 `S379 1 . 1 0 `S381 1 . 1 0 `S384 1 . 1 0 `S387 1 . 1 0 `S390 1 . 1 0 `S393 1 . 1 0 `S402 1 . 1 0 `S405 1 . 1 0 ]
+[v _RCONbits RCONbits `VES413  1 e 1 @4048 ]
+[s S690 . 1 `uc 1 SCS 1 0 :2:0 
 `uc 1 IOFS 1 0 :1:2 
 `uc 1 OSTS 1 0 :1:3 
 `uc 1 IRCF 1 0 :3:4 
 `uc 1 IDLEN 1 0 :1:7 
 ]
 "8612
-[s S690 . 1 `uc 1 SCS0 1 0 :1:0 
+[s S696 . 1 `uc 1 SCS0 1 0 :1:0 
 `uc 1 SCS1 1 0 :1:1 
 `uc 1 FLTS 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -249,8 +251,8 @@
 `uc 1 IRCF1 1 0 :1:5 
 `uc 1 IRCF2 1 0 :1:6 
 ]
-[u S698 . 1 `S684 1 . 1 0 `S690 1 . 1 0 ]
-[v _OSCCONbits OSCCONbits `VES698  1 e 1 @4051 ]
+[u S704 . 1 `S690 1 . 1 0 `S696 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES704  1 e 1 @4051 ]
 "8758
 [v _STATUS STATUS `VEuc  1 e 1 @4056 ]
 "8884
@@ -383,6 +385,8 @@
 [v _actualPosition actualPosition `uc  1 s 1 actualPosition ]
 "8
 [v _schedulerStatus schedulerStatus `uc  1 s 1 schedulerStatus ]
+"9
+[v _r_pointer r_pointer `*.39ul  1 s 2 r_pointer ]
 "11
 [v _i i `uc  1 s 1 i ]
 "12
@@ -411,30 +415,30 @@
 [v _minPrior minPrior `uc  1 s 1 minPrior ]
 "26
 [v _cont cont `uc  1 s 1 cont ]
-[s S539 Task 21 `uc 1 Add1 1 0 `uc 1 Add2 1 1 `uc 1 Add3 1 2 `uc 1 state 1 3 `uc 1 Id 1 4 `uc 1 Priority 1 5 `uc 1 currentAdd1 1 6 `uc 1 currentAdd2 1 7 `uc 1 currentAdd3 1 8 `uc 1 backupStatus 1 9 `uc 1 backupWreg 1 10 `uc 1 backupBsr 1 11 `ui 1 DelayTime 2 12 `uc 1 Delayed 1 14 `uc 1 WaitMessage 1 15 `uc 1 MessageWritter 1 16 `uc 1 MessageReader 1 17 `uc 1 MessageData 1 18 `uc 1 readInterruptedIndex 1 19 `uc 1 writeInterruptedIndex 1 20 ]
-"60
-[v _TaskArray TaskArray `[11]S539  1 e 231 0 ]
-[s S560 MailBox 8 `uc 1 Reader 1 0 `uc 1 Writer 1 1 `uc 1 Available 1 2 `uc 1 Data 1 3 `uc 1 WriterDone 1 4 `uc 1 ReaderDone 1 5 `uc 1 Connected 1 6 `uc 1 ActualConection 1 7 ]
-"73
-[v _MailBoxArray MailBoxArray `[11]S560  1 e 88 0 ]
-"116 C:\Users\David\Desktop\2deabril.X\Structure.h
+[s S544 Task 24 `uc 1 Add1 1 0 `uc 1 Add2 1 1 `uc 1 Add3 1 2 `uc 1 state 1 3 `uc 1 Id 1 4 `uc 1 Priority 1 5 `uc 1 currentAdd1 1 6 `uc 1 currentAdd2 1 7 `uc 1 currentAdd3 1 8 `uc 1 backupStatus 1 9 `uc 1 backupWreg 1 10 `uc 1 backupBsr 1 11 `ui 1 DelayTime 2 12 `uc 1 Delayed 1 14 `uc 1 WaitMessage 1 15 `uc 1 MessageWritter 1 16 `uc 1 MessageReader 1 17 `uc 1 MessageData 1 18 `uc 1 readInterruptedIndex 1 19 `uc 1 writeInterruptedIndex 1 20 `*.2ul 1 r_dataPTR 3 21 ]
+"63
+[v _TaskArray TaskArray `[11]S544  1 e 264 0 ]
+[s S566 MailBox 8 `uc 1 Reader 1 0 `uc 1 Writer 1 1 `uc 1 Available 1 2 `uc 1 Data 1 3 `uc 1 WriterDone 1 4 `uc 1 ReaderDone 1 5 `uc 1 Connected 1 6 `uc 1 ActualConection 1 7 ]
+"76
+[v _MailBoxArray MailBoxArray `[11]S566  1 e 88 0 ]
+"117 C:\Users\David\Desktop\2deabril.X\Structure.h
 [v Structure@s_STATUSBackup s_STATUSBackup `uc  1 s 1 s_STATUSBackup ]
-"117
-[v Structure@s_WREGBackup s_WREGBackup `uc  1 s 1 s_WREGBackup ]
 "118
+[v Structure@s_WREGBackup s_WREGBackup `uc  1 s 1 s_WREGBackup ]
+"119
 [v Structure@s_BSRBackup s_BSRBackup `uc  1 s 1 s_BSRBackup ]
-"178 C:\Users\David\Desktop\2deabril.X\main.c
+"183 C:\Users\David\Desktop\2deabril.X\main.c
 [v _main main `(v  1 e 0 0 ]
 {
-"200
+"205
 } 0
-"262 C:\Users\David\Desktop\2deabril.X\Structure.c
+"271 C:\Users\David\Desktop\2deabril.X\Structure.c
 [v _xTaskCreate xTaskCreate `(v  1 e 0 0 ]
 {
 [v xTaskCreate@pvTaskCode pvTaskCode `ul  1 p 4 14 ]
 [v xTaskCreate@Id Id `uc  1 p 1 18 ]
 [v xTaskCreate@Prior Prior `uc  1 p 1 19 ]
-"285
+"294
 } 0
 "84 C:\Users\David\Desktop\2deabril.X\main.c
 [v _ports_Init ports_Init `(v  1 e 0 0 ]
@@ -449,96 +453,105 @@
 "97
 [v _RX1 RX1 `(v  1 e 0 0 ]
 {
-"122
+"123
 } 0
-"92 C:\Users\David\Desktop\2deabril.X\Structure.c
+"98 C:\Users\David\Desktop\2deabril.X\Structure.c
 [v _WritingMailBox WritingMailBox `(v  1 e 0 0 ]
 {
 [v WritingMailBox@data data `uc  1 a 1 wreg ]
 [v WritingMailBox@data data `uc  1 a 1 wreg ]
-[v WritingMailBox@reader reader `uc  1 p 1 26 ]
-[v WritingMailBox@data data `uc  1 a 1 27 ]
-"126
+[v WritingMailBox@reader reader `uc  1 p 1 14 ]
+[v WritingMailBox@data data `uc  1 a 1 18 ]
+"132
 } 0
-"124 C:\Users\David\Desktop\2deabril.X\main.c
+"125 C:\Users\David\Desktop\2deabril.X\main.c
 [v _PWM1 PWM1 `(v  1 e 0 0 ]
 {
-"142
+"147
 } 0
-"320 C:\Users\David\Desktop\2deabril.X\Structure.c
+"329 C:\Users\David\Desktop\2deabril.X\Structure.c
 [v _vTaskDelete vTaskDelete `(v  1 e 0 0 ]
 {
-"332
+"341
 } 0
-"205
+"214
 [v _vTaskDelay vTaskDelay `(v  1 e 0 0 ]
 {
-[v vTaskDelay@delayms delayms `ui  1 p 2 26 ]
-"220
+[v vTaskDelay@delayms delayms `ui  1 p 2 14 ]
+"229
 } 0
-"75
+"78
 [v _mailBox_init_conection mailBox_init_conection `(v  1 e 0 0 ]
 {
 [v mailBox_init_conection@reader reader `uc  1 a 1 wreg ]
 [v mailBox_init_conection@reader reader `uc  1 a 1 wreg ]
 [v mailBox_init_conection@writer writer `uc  1 p 1 25 ]
-[v mailBox_init_conection@reader reader `uc  1 a 1 26 ]
-"88
+[v mailBox_init_conection@reader reader `uc  1 a 1 14 ]
+"91
 } 0
-"127
+"94
+[v _mailBoxHasData mailBoxHasData `(uc  1 e 1 0 ]
+{
+[v mailBoxHasData@mailboxIndex mailboxIndex `uc  1 a 1 wreg ]
+[v mailBoxHasData@mailboxIndex mailboxIndex `uc  1 a 1 wreg ]
+"96
+[v mailBoxHasData@mailboxIndex mailboxIndex `uc  1 a 1 25 ]
+"97
+} 0
+"133
 [v _ReadingMailBox ReadingMailBox `(v  1 e 0 0 ]
 {
 [v ReadingMailBox@writter writter `uc  1 a 1 wreg ]
 [v ReadingMailBox@writter writter `uc  1 a 1 wreg ]
-[v ReadingMailBox@r r `*.2ul  1 p 2 26 ]
-[v ReadingMailBox@writter writter `uc  1 a 1 19 ]
-"164
+[v ReadingMailBox@r r `*.39ul  1 p 2 14 ]
+[v ReadingMailBox@writter writter `uc  1 a 1 21 ]
+"173
 } 0
-"166
+"175
 [v _waitForBuffer waitForBuffer `(v  1 e 0 0 ]
 {
-"175
+"184
 } 0
-"389
+"398
 [v _OSRun OSRun `(v  1 e 0 0 ]
 {
-"431
+"440
 } 0
-"334
+"343
 [v _OSInit OSInit `(v  1 e 0 0 ]
 {
-"386
+"395
 } 0
-"155 C:\Users\David\Desktop\2deabril.X\main.c
+"160 C:\Users\David\Desktop\2deabril.X\main.c
 [v _Low_Priority_Interrupt Low_Priority_Interrupt `IIL(v  1 e 0 0 ]
 {
-"174
+"179
 } 0
-"287 C:\Users\David\Desktop\2deabril.X\Structure.c
+"296 C:\Users\David\Desktop\2deabril.X\Structure.c
 [v _xInterruptTaskCreate xInterruptTaskCreate `(v  1 e 0 0 ]
 {
 [v xInterruptTaskCreate@pvTaskCode pvTaskCode `ul  1 p 4 0 ]
 [v xInterruptTaskCreate@Id Id `uc  1 p 1 4 ]
 [v xInterruptTaskCreate@Prior Prior `uc  1 p 1 5 ]
-"317
+"326
 } 0
-"243
+"252
 [v _saveInterruptedState saveInterruptedState `(i  1 e 2 0 ]
 {
-"260
+"269
 } 0
-"144 C:\Users\David\Desktop\2deabril.X\main.c
+"149 C:\Users\David\Desktop\2deabril.X\main.c
 [v _High_Priority_Interrupt High_Priority_Interrupt `IIH(v  1 e 0 0 ]
 {
-"152
+"157
 } 0
-"243 C:\Users\David\Desktop\2deabril.X\Structure.c
+"252 C:\Users\David\Desktop\2deabril.X\Structure.c
 [v i2_saveInterruptedState saveInterruptedState `(i  1 e 2 0 ]
 {
-"260
+"269
 } 0
-"222
+"231
 [v _reductionTime reductionTime `(i  1 e 2 0 ]
 {
-"241
+"250
 } 0

@@ -6,7 +6,7 @@ static unsigned char schedulerAdd1=0;
 static unsigned char schedulerAdd2=0;
 static unsigned char schedulerAdd3=0;
 static unsigned char schedulerStatus = ON;
-
+static unsigned long *r_pointer;
 //Global modifications
 static unsigned char i;
 static unsigned char i_mic;
@@ -50,11 +50,14 @@ struct Task{
     
     unsigned char WaitMessage;
     
+    
     unsigned char MessageWritter;
     unsigned char MessageReader;
     unsigned char MessageData;
     unsigned char readInterruptedIndex;
     unsigned char writeInterruptedIndex;
+    
+    unsigned long *r_dataPTR;
 };
 
 struct Task TaskArray[TASKNUMBER];
@@ -88,7 +91,10 @@ void mailBox_init_conection(unsigned char reader, unsigned char writer ){
 }
 
 
-
+char mailBoxHasData(char mailboxIndex)
+{
+    return MailBoxArray[mailboxIndex].Available ;
+}
 void WritingMailBox(unsigned char data, unsigned char reader){
     GIE = OFF;
     index_wmb=10;
@@ -126,6 +132,8 @@ void WritingMailBox(unsigned char data, unsigned char reader){
 }
 void ReadingMailBox(unsigned char writter, unsigned long *r){
     GIE = OFF;
+    //TaskArray[actualPosition].r_dataPTR = r;
+    r_pointer = r;
     for(i_rmb=0;i_rmb<TASKNUMBER;i_rmb++){
         if(MailBoxArray[i_rmb].Reader==actualPosition && 
            MailBoxArray[i_rmb].Writer==writter){
@@ -142,9 +150,10 @@ void ReadingMailBox(unsigned char writter, unsigned long *r){
            MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Available=OFF;
            TaskArray[actualPosition].MessageData = MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Data;
            i_rmb = TaskArray[actualPosition].readInterruptedIndex;
-           
-           *r=MailBoxArray[i_rmb].Data;
-         
+           //r = 0x3B;
+           asm("nop");
+           //*TaskArray[actualPosition].r_dataPTR =MailBoxArray[i_rmb].Data;
+           *r_pointer = MailBoxArray[i_rmb].Data;
            
            if(  (TaskArray[MailBoxArray[i_rmb].Writer].MessageReader == actualPosition)  && TaskArray[ MailBoxArray[  i_rmb  ].Writer ].state == WAIT && TaskArray[ MailBoxArray[  i_rmb  ].Writer].WaitMessage == WAITING_TO_WRITE){
                TaskArray[ MailBoxArray[  i_rmb  ].Writer ].state = READY;

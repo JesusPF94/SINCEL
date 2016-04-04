@@ -110,6 +110,7 @@ void RX1(void){
     while(CN1--);
     vTaskDelay(4);
     WritingMailBox(valor1,0);
+    valor1 = 0;
     INTCON3bits.INT1IF = 0; //clear ext interrupt 1 flag
     INTCON3bits.INT1IE = 1; //enable ext Interrupt 1 
     /*do{
@@ -121,13 +122,20 @@ void RX1(void){
     vTaskDelete();
 }
 
-void PWM1(void){
+void PWM1(void){  
     //Time base will be 100 micro secs 
    mailBox_init_conection(0,1);
-   ReadingMailBox(1,y);
+   ReadingMailBox(1,&y);
    asm("nop");
    dutyCycle1=y;
     while(1){
+           
+        dutyCycle1=y;
+
+        if( mailBoxHasData(0) ){ 
+               ReadingMailBox(1,&y);
+               dutyCycle1=y;
+        }
         LATB3= 1;
         //PORTBbits.RB0 = 1;
         //LATBbits.LATB0 = 1;   // RB-0 to High   

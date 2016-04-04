@@ -1,8 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "31 Structure.c
-[s S557 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `ui 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S557 Task Add1 Add2 Add3 state Id Priority currentAdd1 currentAdd2 currentAdd3 backupStatus backupWreg backupBsr DelayTime Delayed WaitMessage MessageWritter MessageReader MessageData readInterruptedIndex writeInterruptedIndex ]
-"62
+[s S557 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `ui 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `*ul 1 ]
+[n S557 Task Add1 Add2 Add3 state Id Priority currentAdd1 currentAdd2 currentAdd3 backupStatus backupWreg backupBsr DelayTime Delayed WaitMessage MessageWritter MessageReader MessageData readInterruptedIndex writeInterruptedIndex r_dataPTR ]
+"65
 [s S558 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
 [n S558 MailBox Reader Writer Available Data WriterDone ReaderDone Connected ActualConection ]
 "10047 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
@@ -4275,24 +4275,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Structure.h: 109: void waitForBuffer(void);
 [; ;Structure.h: 111: void DoneWritting(unsigned char reader);
 [; ;Structure.h: 113: void DoneReading(unsigned char writter);
-"116 Structure.h
+[; ;Structure.h: 115: char mailBoxHasData(char mailboxIndex);
+"117 Structure.h
 [v _s_STATUSBackup `uc ~T0 @X0 1 s ]
 [i _s_STATUSBackup
 -> -> 255 `i `uc
 ]
-[; ;Structure.h: 116: static char s_STATUSBackup=255;
-"117
+[; ;Structure.h: 117: static char s_STATUSBackup=255;
+"118
 [v _s_WREGBackup `uc ~T0 @X0 1 s ]
 [i _s_WREGBackup
 -> -> 255 `i `uc
 ]
-[; ;Structure.h: 117: static char s_WREGBackup=255;
-"118
+[; ;Structure.h: 118: static char s_WREGBackup=255;
+"119
 [v _s_BSRBackup `uc ~T0 @X0 1 s ]
 [i _s_BSRBackup
 -> -> 255 `i `uc
 ]
-[; ;Structure.h: 118: static char s_BSRBackup=255;
+[; ;Structure.h: 119: static char s_BSRBackup=255;
 "3 Structure.c
 [v _taskPosition `uc ~T0 @X0 1 s ]
 [i _taskPosition
@@ -4329,6 +4330,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 1 `i `uc
 ]
 [; ;Structure.c: 8: static unsigned char schedulerStatus = 1;
+"9
+[v _r_pointer `*ul ~T0 @X0 1 s ]
+[; ;Structure.c: 9: static unsigned long *r_pointer;
 "11
 [v _i `uc ~T0 @X0 1 s ]
 [; ;Structure.c: 11: static unsigned char i;
@@ -4405,970 +4409,996 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Structure.c: 48: unsigned int DelayTime;
 [; ;Structure.c: 49: unsigned char Delayed;
 [; ;Structure.c: 51: unsigned char WaitMessage;
-[; ;Structure.c: 53: unsigned char MessageWritter;
-[; ;Structure.c: 54: unsigned char MessageReader;
-[; ;Structure.c: 55: unsigned char MessageData;
-[; ;Structure.c: 56: unsigned char readInterruptedIndex;
-[; ;Structure.c: 57: unsigned char writeInterruptedIndex;
-[; ;Structure.c: 58: };
-"60
+[; ;Structure.c: 54: unsigned char MessageWritter;
+[; ;Structure.c: 55: unsigned char MessageReader;
+[; ;Structure.c: 56: unsigned char MessageData;
+[; ;Structure.c: 57: unsigned char readInterruptedIndex;
+[; ;Structure.c: 58: unsigned char writeInterruptedIndex;
+[; ;Structure.c: 60: unsigned long *r_dataPTR;
+[; ;Structure.c: 61: };
+"63
 [v _TaskArray `S557 ~T0 @X0 -> 11 `i e ]
-[; ;Structure.c: 60: struct Task TaskArray[11];
-[; ;Structure.c: 62: struct MailBox {
-[; ;Structure.c: 63: unsigned char Reader;
-[; ;Structure.c: 64: unsigned char Writer;
-[; ;Structure.c: 65: unsigned char Available;
-[; ;Structure.c: 66: unsigned char Data;
-[; ;Structure.c: 67: unsigned char WriterDone;
-[; ;Structure.c: 68: unsigned char ReaderDone;
-[; ;Structure.c: 69: unsigned char Connected;
-[; ;Structure.c: 70: unsigned char ActualConection;
-[; ;Structure.c: 71: };
-"73
+[; ;Structure.c: 63: struct Task TaskArray[11];
+[; ;Structure.c: 65: struct MailBox {
+[; ;Structure.c: 66: unsigned char Reader;
+[; ;Structure.c: 67: unsigned char Writer;
+[; ;Structure.c: 68: unsigned char Available;
+[; ;Structure.c: 69: unsigned char Data;
+[; ;Structure.c: 70: unsigned char WriterDone;
+[; ;Structure.c: 71: unsigned char ReaderDone;
+[; ;Structure.c: 72: unsigned char Connected;
+[; ;Structure.c: 73: unsigned char ActualConection;
+[; ;Structure.c: 74: };
+"76
 [v _MailBoxArray `S558 ~T0 @X0 -> 11 `i e ]
-[; ;Structure.c: 73: struct MailBox MailBoxArray[11];
-"75
+[; ;Structure.c: 76: struct MailBox MailBoxArray[11];
+"78
 [v _mailBox_init_conection `(v ~T0 @X0 1 ef2`uc`uc ]
 {
-[; ;Structure.c: 75: void mailBox_init_conection(unsigned char reader, unsigned char writer ){
+[; ;Structure.c: 78: void mailBox_init_conection(unsigned char reader, unsigned char writer ){
 [e :U _mailBox_init_conection ]
 [v _reader `uc ~T0 @X0 1 r1 ]
 [v _writer `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;Structure.c: 76: GIE = 0;
-"76
+[; ;Structure.c: 79: GIE = 0;
+"79
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 77: index_mic=10;
-"77
+[; ;Structure.c: 80: index_mic=10;
+"80
 [e = _index_mic -> -> 10 `i `uc ]
-[; ;Structure.c: 78: for(i_mic=0;i_mic<11;i_mic++){
-"78
+[; ;Structure.c: 81: for(i_mic=0;i_mic<11;i_mic++){
+"81
 {
 [e = _i_mic -> -> 0 `i `uc ]
 [e $ < -> _i_mic `i -> 11 `i 560  ]
 [e $U 561  ]
 [e :U 560 ]
 {
-[; ;Structure.c: 79: if(MailBoxArray[i_mic].Available==0 && MailBoxArray[i_mic].Connected==0){
-"79
+[; ;Structure.c: 82: if(MailBoxArray[i_mic].Available==0 && MailBoxArray[i_mic].Connected==0){
+"82
 [e $ ! && == -> . *U + &U _MailBoxArray * -> _i_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 2 `i -> 0 `i == -> . *U + &U _MailBoxArray * -> _i_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 6 `i -> 0 `i 563  ]
 {
-[; ;Structure.c: 80: index_mic=i_mic;
-"80
+[; ;Structure.c: 83: index_mic=i_mic;
+"83
 [e = _index_mic _i_mic ]
-[; ;Structure.c: 81: i_mic=100;
-"81
+[; ;Structure.c: 84: i_mic=100;
+"84
 [e = _i_mic -> -> 100 `i `uc ]
-"82
+"85
 }
 [e :U 563 ]
-"83
+"86
 }
-"78
+"81
 [e ++ _i_mic -> -> 1 `i `uc ]
 [e $ < -> _i_mic `i -> 11 `i 560  ]
 [e :U 561 ]
-"83
-}
-[; ;Structure.c: 82: }
-[; ;Structure.c: 83: }
-[; ;Structure.c: 84: TaskArray[actualPosition].MessageReader=reader;
-"84
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 16 _reader ]
-[; ;Structure.c: 85: MailBoxArray[index_mic].Reader=reader;
-"85
-[e = . *U + &U _MailBoxArray * -> _index_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 0 _reader ]
-[; ;Structure.c: 86: MailBoxArray[index_mic].Writer=writer;
 "86
-[e = . *U + &U _MailBoxArray * -> _index_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 1 _writer ]
-[; ;Structure.c: 87: MailBoxArray[index_mic].Connected=1;
+}
+[; ;Structure.c: 85: }
+[; ;Structure.c: 86: }
+[; ;Structure.c: 87: TaskArray[actualPosition].MessageReader=reader;
 "87
-[e = . *U + &U _MailBoxArray * -> _index_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 1 `i `uc ]
-[; ;Structure.c: 88: }
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 16 _reader ]
+[; ;Structure.c: 88: MailBoxArray[index_mic].Reader=reader;
 "88
+[e = . *U + &U _MailBoxArray * -> _index_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 0 _reader ]
+[; ;Structure.c: 89: MailBoxArray[index_mic].Writer=writer;
+"89
+[e = . *U + &U _MailBoxArray * -> _index_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 1 _writer ]
+[; ;Structure.c: 90: MailBoxArray[index_mic].Connected=1;
+"90
+[e = . *U + &U _MailBoxArray * -> _index_mic `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 1 `i `uc ]
+[; ;Structure.c: 91: }
+"91
 [e :UE 559 ]
 }
-"92
+"94
+[v _mailBoxHasData `(uc ~T0 @X0 1 ef1`uc ]
+"95
+{
+[; ;Structure.c: 94: char mailBoxHasData(char mailboxIndex)
+[; ;Structure.c: 95: {
+[e :U _mailBoxHasData ]
+"94
+[v _mailboxIndex `uc ~T0 @X0 1 r1 ]
+"95
+[f ]
+[; ;Structure.c: 96: return MailBoxArray[mailboxIndex].Available ;
+"96
+[e ) . *U + &U _MailBoxArray * -> _mailboxIndex `ux -> -> # *U &U _MailBoxArray `ui `ux 2 ]
+[e $UE 564  ]
+[; ;Structure.c: 97: }
+"97
+[e :UE 564 ]
+}
+"98
 [v _WritingMailBox `(v ~T0 @X0 1 ef2`uc`uc ]
 {
-[; ;Structure.c: 92: void WritingMailBox(unsigned char data, unsigned char reader){
+[; ;Structure.c: 98: void WritingMailBox(unsigned char data, unsigned char reader){
 [e :U _WritingMailBox ]
 [v _data `uc ~T0 @X0 1 r1 ]
 [v _reader `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;Structure.c: 93: GIE = 0;
-"93
+[; ;Structure.c: 99: GIE = 0;
+"99
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 94: index_wmb=10;
-"94
+[; ;Structure.c: 100: index_wmb=10;
+"100
 [e = _index_wmb -> -> 10 `i `uc ]
-[; ;Structure.c: 95: for(i_wmb=0;i_wmb<11;i_wmb++){
-"95
+[; ;Structure.c: 101: for(i_wmb=0;i_wmb<11;i_wmb++){
+"101
 {
 [e = _i_wmb -> -> 0 `i `uc ]
-[e $ < -> _i_wmb `i -> 11 `i 565  ]
-[e $U 566  ]
-[e :U 565 ]
-{
-[; ;Structure.c: 96: if(MailBoxArray[i_wmb].Writer==actualPosition &&
-[; ;Structure.c: 97: MailBoxArray[i_wmb].Reader==reader){
-"97
-[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_wmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _actualPosition `i == -> . *U + &U _MailBoxArray * -> _i_wmb `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _reader `i 568  ]
-{
-[; ;Structure.c: 98: index_wmb=i_wmb;
-"98
-[e = _index_wmb _i_wmb ]
-[; ;Structure.c: 99: i_wmb=100;
-"99
-[e = _i_wmb -> -> 100 `i `uc ]
-[; ;Structure.c: 100: TaskArray[actualPosition].writeInterruptedIndex = index_wmb;
-"100
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 _index_wmb ]
-[; ;Structure.c: 101: TaskArray[actualPosition].MessageData=data;
-"101
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 _data ]
-[; ;Structure.c: 102: if(MailBoxArray[index_wmb].Available==1){
-"102
-[e $ ! == -> . *U + &U _MailBoxArray * -> _index_wmb `ux -> -> # *U &U _MailBoxArray `ui `ux 2 `i -> 1 `i 569  ]
-{
-[; ;Structure.c: 104: TaskArray[actualPosition].MessageReader=reader;
-"104
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 16 _reader ]
-[; ;Structure.c: 105: TaskArray[actualPosition].MessageData=data;
-"105
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 _data ]
-[; ;Structure.c: 106: TaskArray[actualPosition].WaitMessage = 1;
-"106
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 1 `i `uc ]
-[; ;Structure.c: 108: waitForBuffer();
-"108
-[e ( _waitForBuffer ..  ]
-"109
-}
-[e :U 569 ]
-"110
-}
-[e :U 568 ]
-"111
-}
-"95
-[e ++ _i_wmb -> -> 1 `i `uc ]
-[e $ < -> _i_wmb `i -> 11 `i 565  ]
+[e $ < -> _i_wmb `i -> 11 `i 566  ]
+[e $U 567  ]
 [e :U 566 ]
-"111
-}
-[; ;Structure.c: 109: }
-[; ;Structure.c: 110: }
-[; ;Structure.c: 111: }
-[; ;Structure.c: 113: MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Data= TaskArray[actualPosition].MessageData;
-"113
-[e = . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 3 . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 ]
-[; ;Structure.c: 114: MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Available=1;
-"114
-[e = . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 2 -> -> 1 `i `uc ]
-[; ;Structure.c: 115: if(TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader ].state == 1 && TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader].WaitMessage == 2){
-"115
-[e $ ! && == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 1 `i == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 14 `i -> 2 `i 570  ]
 {
-[; ;Structure.c: 116: TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader ].state = 2;
-"116
-[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
-[; ;Structure.c: 117: TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader].WaitMessage = 0;
-"117
-[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 0 `i `uc ]
-[; ;Structure.c: 119: TaskArray[actualPosition].currentAdd3=TOSU;
-"119
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
-[; ;Structure.c: 120: TaskArray[actualPosition].currentAdd2=TOSH;
-"120
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
-[; ;Structure.c: 121: TaskArray[actualPosition].currentAdd1=TOSL;
-"121
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
-[; ;Structure.c: 122: STKPTR--;
-"122
-[e -- _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 123: OSRun();
-"123
-[e ( _OSRun ..  ]
-"125
+[; ;Structure.c: 102: if(MailBoxArray[i_wmb].Writer==actualPosition &&
+[; ;Structure.c: 103: MailBoxArray[i_wmb].Reader==reader){
+"103
+[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_wmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _actualPosition `i == -> . *U + &U _MailBoxArray * -> _i_wmb `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _reader `i 569  ]
+{
+[; ;Structure.c: 104: index_wmb=i_wmb;
+"104
+[e = _index_wmb _i_wmb ]
+[; ;Structure.c: 105: i_wmb=100;
+"105
+[e = _i_wmb -> -> 100 `i `uc ]
+[; ;Structure.c: 106: TaskArray[actualPosition].writeInterruptedIndex = index_wmb;
+"106
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 _index_wmb ]
+[; ;Structure.c: 107: TaskArray[actualPosition].MessageData=data;
+"107
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 _data ]
+[; ;Structure.c: 108: if(MailBoxArray[index_wmb].Available==1){
+"108
+[e $ ! == -> . *U + &U _MailBoxArray * -> _index_wmb `ux -> -> # *U &U _MailBoxArray `ui `ux 2 `i -> 1 `i 570  ]
+{
+[; ;Structure.c: 110: TaskArray[actualPosition].MessageReader=reader;
+"110
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 16 _reader ]
+[; ;Structure.c: 111: TaskArray[actualPosition].MessageData=data;
+"111
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 _data ]
+[; ;Structure.c: 112: TaskArray[actualPosition].WaitMessage = 1;
+"112
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 1 `i `uc ]
+[; ;Structure.c: 114: waitForBuffer();
+"114
+[e ( _waitForBuffer ..  ]
+"115
 }
 [e :U 570 ]
-[; ;Structure.c: 125: }
-[; ;Structure.c: 126: }
-"126
-[e :UE 564 ]
+"116
 }
+[e :U 569 ]
+"117
+}
+"101
+[e ++ _i_wmb -> -> 1 `i `uc ]
+[e $ < -> _i_wmb `i -> 11 `i 566  ]
+[e :U 567 ]
+"117
+}
+[; ;Structure.c: 115: }
+[; ;Structure.c: 116: }
+[; ;Structure.c: 117: }
+[; ;Structure.c: 119: MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Data= TaskArray[actualPosition].MessageData;
+"119
+[e = . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 3 . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 ]
+[; ;Structure.c: 120: MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Available=1;
+"120
+[e = . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 2 -> -> 1 `i `uc ]
+[; ;Structure.c: 121: if(TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader ].state == 1 && TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader].WaitMessage == 2){
+"121
+[e $ ! && == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 1 `i == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 14 `i -> 2 `i 571  ]
+{
+[; ;Structure.c: 122: TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader ].state = 2;
+"122
+[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
+[; ;Structure.c: 123: TaskArray[ MailBoxArray[ TaskArray[actualPosition].writeInterruptedIndex ].Reader].WaitMessage = 0;
+"123
+[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 19 `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 0 `i `uc ]
+[; ;Structure.c: 125: TaskArray[actualPosition].currentAdd3=TOSU;
+"125
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
+[; ;Structure.c: 126: TaskArray[actualPosition].currentAdd2=TOSH;
+"126
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
+[; ;Structure.c: 127: TaskArray[actualPosition].currentAdd1=TOSL;
 "127
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
+[; ;Structure.c: 128: STKPTR--;
+"128
+[e -- _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 129: OSRun();
+"129
+[e ( _OSRun ..  ]
+"131
+}
+[e :U 571 ]
+[; ;Structure.c: 131: }
+[; ;Structure.c: 132: }
+"132
+[e :UE 565 ]
+}
+"133
 [v _ReadingMailBox `(v ~T0 @X0 1 ef2`uc`*ul ]
 {
-[; ;Structure.c: 127: void ReadingMailBox(unsigned char writter, unsigned long *r){
+[; ;Structure.c: 133: void ReadingMailBox(unsigned char writter, unsigned long *r){
 [e :U _ReadingMailBox ]
 [v _writter `uc ~T0 @X0 1 r1 ]
 [v _r `*ul ~T0 @X0 1 r2 ]
 [f ]
-[; ;Structure.c: 128: GIE = 0;
-"128
+[; ;Structure.c: 134: GIE = 0;
+"134
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 129: for(i_rmb=0;i_rmb<11;i_rmb++){
-"129
+[; ;Structure.c: 136: r_pointer = r;
+"136
+[e = _r_pointer _r ]
+[; ;Structure.c: 137: for(i_rmb=0;i_rmb<11;i_rmb++){
+"137
 {
 [e = _i_rmb -> -> 0 `i `uc ]
-[e $ < -> _i_rmb `i -> 11 `i 572  ]
-[e $U 573  ]
-[e :U 572 ]
+[e $ < -> _i_rmb `i -> 11 `i 573  ]
+[e $U 574  ]
+[e :U 573 ]
 {
-[; ;Structure.c: 130: if(MailBoxArray[i_rmb].Reader==actualPosition &&
-[; ;Structure.c: 131: MailBoxArray[i_rmb].Writer==writter){
-"131
-[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _actualPosition `i == -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _writter `i 575  ]
-{
-[; ;Structure.c: 132: index_rmb=i_rmb;
-"132
-[e = _index_rmb _i_rmb ]
-[; ;Structure.c: 133: i_rmb=100;
-"133
-[e = _i_rmb -> -> 100 `i `uc ]
-[; ;Structure.c: 134: TaskArray[actualPosition].readInterruptedIndex = index_rmb;
-"134
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 _index_rmb ]
-[; ;Structure.c: 135: TaskArray[actualPosition].MessageData=MailBoxArray[index_rmb].Data;
-"135
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 . *U + &U _MailBoxArray * -> _index_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 3 ]
-[; ;Structure.c: 136: if(MailBoxArray[index_rmb].Available==0){
-"136
-[e $ ! == -> . *U + &U _MailBoxArray * -> _index_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 2 `i -> 0 `i 576  ]
-{
-[; ;Structure.c: 137: TaskArray[actualPosition].MessageWritter=writter;
-"137
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 15 _writter ]
-[; ;Structure.c: 138: TaskArray[actualPosition].WaitMessage = 2;
-"138
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 2 `i `uc ]
-[; ;Structure.c: 139: TaskArray[actualPosition].state = 1;
+[; ;Structure.c: 138: if(MailBoxArray[i_rmb].Reader==actualPosition &&
+[; ;Structure.c: 139: MailBoxArray[i_rmb].Writer==writter){
 "139
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 1 `i `uc ]
-[; ;Structure.c: 140: waitForBuffer();
-"140
-[e ( _waitForBuffer ..  ]
-"141
-}
-[e :U 576 ]
-[; ;Structure.c: 141: }
-[; ;Structure.c: 142: MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Available=0;
-"142
-[e = . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 `ux -> -> # *U &U _MailBoxArray `ui `ux 2 -> -> 0 `i `uc ]
-[; ;Structure.c: 143: TaskArray[actualPosition].MessageData = MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Data;
-"143
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 `ux -> -> # *U &U _MailBoxArray `ui `ux 3 ]
-[; ;Structure.c: 144: i_rmb = TaskArray[actualPosition].readInterruptedIndex;
-"144
-[e = _i_rmb . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 ]
-[; ;Structure.c: 146: *r=MailBoxArray[i_rmb].Data;
-"146
-[e = *U _r -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 3 `ul ]
-[; ;Structure.c: 149: if( (TaskArray[MailBoxArray[i_rmb].Writer].MessageReader == actualPosition) && TaskArray[ MailBoxArray[ i_rmb ].Writer ].state == 1 && TaskArray[ MailBoxArray[ i_rmb ].Writer].WaitMessage == 1){
-"149
-[e $ ! && && == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 16 `i -> _actualPosition `i == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 1 `i == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 14 `i -> 1 `i 577  ]
+[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _actualPosition `i == -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _writter `i 576  ]
 {
-[; ;Structure.c: 150: TaskArray[ MailBoxArray[ i_rmb ].Writer ].state = 2;
-"150
-[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
-[; ;Structure.c: 151: TaskArray[ MailBoxArray[ i_rmb ].Writer].WaitMessage = 0;
-"151
-[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 0 `i `uc ]
-[; ;Structure.c: 153: TaskArray[actualPosition].currentAdd3=TOSU;
-"153
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
-[; ;Structure.c: 154: TaskArray[actualPosition].currentAdd2=TOSH;
-"154
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
-[; ;Structure.c: 155: TaskArray[actualPosition].currentAdd1=TOSL;
-"155
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
-[; ;Structure.c: 156: STKPTR--;
-"156
-[e -- _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 157: OSRun();
-"157
-[e ( _OSRun ..  ]
-"158
+[; ;Structure.c: 140: index_rmb=i_rmb;
+"140
+[e = _index_rmb _i_rmb ]
+[; ;Structure.c: 141: i_rmb=100;
+"141
+[e = _i_rmb -> -> 100 `i `uc ]
+[; ;Structure.c: 142: TaskArray[actualPosition].readInterruptedIndex = index_rmb;
+"142
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 _index_rmb ]
+[; ;Structure.c: 143: TaskArray[actualPosition].MessageData=MailBoxArray[index_rmb].Data;
+"143
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 . *U + &U _MailBoxArray * -> _index_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 3 ]
+[; ;Structure.c: 144: if(MailBoxArray[index_rmb].Available==0){
+"144
+[e $ ! == -> . *U + &U _MailBoxArray * -> _index_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 2 `i -> 0 `i 577  ]
+{
+[; ;Structure.c: 145: TaskArray[actualPosition].MessageWritter=writter;
+"145
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 15 _writter ]
+[; ;Structure.c: 146: TaskArray[actualPosition].WaitMessage = 2;
+"146
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 2 `i `uc ]
+[; ;Structure.c: 147: TaskArray[actualPosition].state = 1;
+"147
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 1 `i `uc ]
+[; ;Structure.c: 148: waitForBuffer();
+"148
+[e ( _waitForBuffer ..  ]
+"149
 }
 [e :U 577 ]
+[; ;Structure.c: 149: }
+[; ;Structure.c: 150: MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Available=0;
+"150
+[e = . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 `ux -> -> # *U &U _MailBoxArray `ui `ux 2 -> -> 0 `i `uc ]
+[; ;Structure.c: 151: TaskArray[actualPosition].MessageData = MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Data;
+"151
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 17 . *U + &U _MailBoxArray * -> . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 `ux -> -> # *U &U _MailBoxArray `ui `ux 3 ]
+[; ;Structure.c: 152: i_rmb = TaskArray[actualPosition].readInterruptedIndex;
+"152
+[e = _i_rmb . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 18 ]
+[; ;Structure.c: 154: asm("nop");
+"154
+[; <" nop ;# ">
+[; ;Structure.c: 156: *r_pointer = MailBoxArray[i_rmb].Data;
+"156
+[e = *U _r_pointer -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 3 `ul ]
+[; ;Structure.c: 158: if( (TaskArray[MailBoxArray[i_rmb].Writer].MessageReader == actualPosition) && TaskArray[ MailBoxArray[ i_rmb ].Writer ].state == 1 && TaskArray[ MailBoxArray[ i_rmb ].Writer].WaitMessage == 1){
+"158
+[e $ ! && && == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 16 `i -> _actualPosition `i == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 1 `i == -> . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 14 `i -> 1 `i 578  ]
+{
+[; ;Structure.c: 159: TaskArray[ MailBoxArray[ i_rmb ].Writer ].state = 2;
+"159
+[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
+[; ;Structure.c: 160: TaskArray[ MailBoxArray[ i_rmb ].Writer].WaitMessage = 0;
+"160
+[e = . *U + &U _TaskArray * -> . *U + &U _MailBoxArray * -> _i_rmb `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `ux -> -> # *U &U _TaskArray `ui `ux 14 -> -> 0 `i `uc ]
+[; ;Structure.c: 162: TaskArray[actualPosition].currentAdd3=TOSU;
 "162
-}
-[e :U 575 ]
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
+[; ;Structure.c: 163: TaskArray[actualPosition].currentAdd2=TOSH;
 "163
-}
-"129
-[e ++ _i_rmb -> -> 1 `i `uc ]
-[e $ < -> _i_rmb `i -> 11 `i 572  ]
-[e :U 573 ]
-"163
-}
-[; ;Structure.c: 158: }
-[; ;Structure.c: 162: }
-[; ;Structure.c: 163: }
-[; ;Structure.c: 164: }
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
+[; ;Structure.c: 164: TaskArray[actualPosition].currentAdd1=TOSL;
 "164
-[e :UE 571 ]
-}
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
+[; ;Structure.c: 165: STKPTR--;
+"165
+[e -- _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 166: OSRun();
 "166
+[e ( _OSRun ..  ]
+"167
+}
+[e :U 578 ]
+"171
+}
+[e :U 576 ]
+"172
+}
+"137
+[e ++ _i_rmb -> -> 1 `i `uc ]
+[e $ < -> _i_rmb `i -> 11 `i 573  ]
+[e :U 574 ]
+"172
+}
+[; ;Structure.c: 167: }
+[; ;Structure.c: 171: }
+[; ;Structure.c: 172: }
+[; ;Structure.c: 173: }
+"173
+[e :UE 572 ]
+}
+"175
 [v _waitForBuffer `(v ~T0 @X0 1 ef ]
 {
-[; ;Structure.c: 166: void waitForBuffer(void){
+[; ;Structure.c: 175: void waitForBuffer(void){
 [e :U _waitForBuffer ]
 [f ]
-[; ;Structure.c: 167: GIE = 0;
-"167
+[; ;Structure.c: 176: GIE = 0;
+"176
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 168: TaskArray[actualPosition].state = 1;
-"168
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 1 `i `uc ]
-[; ;Structure.c: 170: TaskArray[actualPosition].currentAdd3 = TOSU;
-"170
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
-[; ;Structure.c: 171: TaskArray[actualPosition].currentAdd2 = TOSH;
-"171
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
-[; ;Structure.c: 172: TaskArray[actualPosition].currentAdd1 = TOSL;
-"172
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
-[; ;Structure.c: 173: STKPTR++;
-"173
-[e ++ _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 174: TOS = &OSRun;
-"174
-[e = _TOS -> &U _OSRun `Vum ]
-[; ;Structure.c: 175: }
-"175
-[e :UE 578 ]
-}
+[; ;Structure.c: 177: TaskArray[actualPosition].state = 1;
 "177
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 1 `i `uc ]
+[; ;Structure.c: 179: TaskArray[actualPosition].currentAdd3 = TOSU;
+"179
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
+[; ;Structure.c: 180: TaskArray[actualPosition].currentAdd2 = TOSH;
+"180
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
+[; ;Structure.c: 181: TaskArray[actualPosition].currentAdd1 = TOSL;
+"181
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
+[; ;Structure.c: 182: STKPTR++;
+"182
+[e ++ _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 183: TOS = &OSRun;
+"183
+[e = _TOS -> &U _OSRun `Vum ]
+[; ;Structure.c: 184: }
+"184
+[e :UE 579 ]
+}
+"186
 [v _DoneWritting `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Structure.c: 177: void DoneWritting(unsigned char reader){
+[; ;Structure.c: 186: void DoneWritting(unsigned char reader){
 [e :U _DoneWritting ]
 [v _reader `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;Structure.c: 178: GIE = 0;
-"178
+[; ;Structure.c: 187: GIE = 0;
+"187
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 179: index_dw=10;
-"179
+[; ;Structure.c: 188: index_dw=10;
+"188
 [e = _index_dw -> -> 10 `i `uc ]
-[; ;Structure.c: 180: for(i_dw=0;i_dw<11;i_dw++){
-"180
+[; ;Structure.c: 189: for(i_dw=0;i_dw<11;i_dw++){
+"189
 {
 [e = _i_dw -> -> 0 `i `uc ]
-[e $ < -> _i_dw `i -> 11 `i 580  ]
-[e $U 581  ]
-[e :U 580 ]
-{
-[; ;Structure.c: 181: if(MailBoxArray[i_dw].Reader==reader && MailBoxArray[i_dw].Writer==actualPosition){
-"181
-[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _reader `i == -> . *U + &U _MailBoxArray * -> _i_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _actualPosition `i 583  ]
-{
-[; ;Structure.c: 182: index_dw=i_dw;
-"182
-[e = _index_dw _i_dw ]
-"183
-}
-[e :U 583 ]
-"184
-}
-"180
-[e ++ _i_dw -> -> 1 `i `uc ]
-[e $ < -> _i_dw `i -> 11 `i 580  ]
+[e $ < -> _i_dw `i -> 11 `i 581  ]
+[e $U 582  ]
 [e :U 581 ]
-"184
-}
-[; ;Structure.c: 183: }
-[; ;Structure.c: 184: }
-[; ;Structure.c: 185: MailBoxArray[index_dw].WriterDone=1;
-"185
-[e = . *U + &U _MailBoxArray * -> _index_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 4 -> -> 1 `i `uc ]
-[; ;Structure.c: 186: if(MailBoxArray[index_dw].ReaderDone==1){
-"186
-[e $ ! == -> . *U + &U _MailBoxArray * -> _index_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 5 `i -> 1 `i 584  ]
 {
-[; ;Structure.c: 187: MailBoxArray[index_dw].Connected=0;
-"187
-[e = . *U + &U _MailBoxArray * -> _index_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 0 `i `uc ]
-"188
+[; ;Structure.c: 190: if(MailBoxArray[i_dw].Reader==reader && MailBoxArray[i_dw].Writer==actualPosition){
+"190
+[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _reader `i == -> . *U + &U _MailBoxArray * -> _i_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _actualPosition `i 584  ]
+{
+[; ;Structure.c: 191: index_dw=i_dw;
+"191
+[e = _index_dw _i_dw ]
+"192
 }
 [e :U 584 ]
-[; ;Structure.c: 188: }
-[; ;Structure.c: 189: }
-"189
-[e :UE 579 ]
+"193
 }
-"191
+"189
+[e ++ _i_dw -> -> 1 `i `uc ]
+[e $ < -> _i_dw `i -> 11 `i 581  ]
+[e :U 582 ]
+"193
+}
+[; ;Structure.c: 192: }
+[; ;Structure.c: 193: }
+[; ;Structure.c: 194: MailBoxArray[index_dw].WriterDone=1;
+"194
+[e = . *U + &U _MailBoxArray * -> _index_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 4 -> -> 1 `i `uc ]
+[; ;Structure.c: 195: if(MailBoxArray[index_dw].ReaderDone==1){
+"195
+[e $ ! == -> . *U + &U _MailBoxArray * -> _index_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 5 `i -> 1 `i 585  ]
+{
+[; ;Structure.c: 196: MailBoxArray[index_dw].Connected=0;
+"196
+[e = . *U + &U _MailBoxArray * -> _index_dw `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 0 `i `uc ]
+"197
+}
+[e :U 585 ]
+[; ;Structure.c: 197: }
+[; ;Structure.c: 198: }
+"198
+[e :UE 580 ]
+}
+"200
 [v _DoneReading `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;Structure.c: 191: void DoneReading(unsigned char writter){
+[; ;Structure.c: 200: void DoneReading(unsigned char writter){
 [e :U _DoneReading ]
 [v _writter `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;Structure.c: 192: GIE = 0;
-"192
+[; ;Structure.c: 201: GIE = 0;
+"201
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 193: index_dr=10;
-"193
+[; ;Structure.c: 202: index_dr=10;
+"202
 [e = _index_dr -> -> 10 `i `uc ]
-[; ;Structure.c: 194: for(i_dr=0;i_dr<11;i_dr++){
-"194
+[; ;Structure.c: 203: for(i_dr=0;i_dr<11;i_dr++){
+"203
 {
 [e = _i_dr -> -> 0 `i `uc ]
-[e $ < -> _i_dr `i -> 11 `i 586  ]
-[e $U 587  ]
-[e :U 586 ]
-{
-[; ;Structure.c: 195: if(MailBoxArray[i_dr].Writer==writter && MailBoxArray[i_dr].Reader==actualPosition){
-"195
-[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _writter `i == -> . *U + &U _MailBoxArray * -> _i_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _actualPosition `i 589  ]
-{
-[; ;Structure.c: 196: index_dr=i_dr;
-"196
-[e = _index_dr _i_dr ]
-"197
-}
-[e :U 589 ]
-"198
-}
-"194
-[e ++ _i_dr -> -> 1 `i `uc ]
-[e $ < -> _i_dr `i -> 11 `i 586  ]
+[e $ < -> _i_dr `i -> 11 `i 587  ]
+[e $U 588  ]
 [e :U 587 ]
-"198
-}
-[; ;Structure.c: 197: }
-[; ;Structure.c: 198: }
-[; ;Structure.c: 199: MailBoxArray[index_dr].ReaderDone=1;
-"199
-[e = . *U + &U _MailBoxArray * -> _index_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 5 -> -> 1 `i `uc ]
-[; ;Structure.c: 200: if(MailBoxArray[index_dr].WriterDone==1){
-"200
-[e $ ! == -> . *U + &U _MailBoxArray * -> _index_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 4 `i -> 1 `i 590  ]
 {
-[; ;Structure.c: 201: MailBoxArray[index_dr].Connected=0;
-"201
-[e = . *U + &U _MailBoxArray * -> _index_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 0 `i `uc ]
-"202
+[; ;Structure.c: 204: if(MailBoxArray[i_dr].Writer==writter && MailBoxArray[i_dr].Reader==actualPosition){
+"204
+[e $ ! && == -> . *U + &U _MailBoxArray * -> _i_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 1 `i -> _writter `i == -> . *U + &U _MailBoxArray * -> _i_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 0 `i -> _actualPosition `i 590  ]
+{
+[; ;Structure.c: 205: index_dr=i_dr;
+"205
+[e = _index_dr _i_dr ]
+"206
 }
 [e :U 590 ]
-[; ;Structure.c: 202: }
-[; ;Structure.c: 203: }
-"203
-[e :UE 585 ]
+"207
 }
-"205
+"203
+[e ++ _i_dr -> -> 1 `i `uc ]
+[e $ < -> _i_dr `i -> 11 `i 587  ]
+[e :U 588 ]
+"207
+}
+[; ;Structure.c: 206: }
+[; ;Structure.c: 207: }
+[; ;Structure.c: 208: MailBoxArray[index_dr].ReaderDone=1;
+"208
+[e = . *U + &U _MailBoxArray * -> _index_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 5 -> -> 1 `i `uc ]
+[; ;Structure.c: 209: if(MailBoxArray[index_dr].WriterDone==1){
+"209
+[e $ ! == -> . *U + &U _MailBoxArray * -> _index_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 4 `i -> 1 `i 591  ]
+{
+[; ;Structure.c: 210: MailBoxArray[index_dr].Connected=0;
+"210
+[e = . *U + &U _MailBoxArray * -> _index_dr `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 0 `i `uc ]
+"211
+}
+[e :U 591 ]
+[; ;Structure.c: 211: }
+[; ;Structure.c: 212: }
+"212
+[e :UE 586 ]
+}
+"214
 [v _vTaskDelay `(v ~T0 @X0 1 ef1`ui ]
 {
-[; ;Structure.c: 205: void vTaskDelay(unsigned int delayms){
+[; ;Structure.c: 214: void vTaskDelay(unsigned int delayms){
 [e :U _vTaskDelay ]
 [v _delayms `ui ~T0 @X0 1 r1 ]
 [f ]
-[; ;Structure.c: 206: INTCONbits.PEIE_GIEL=0;
-"206
-[e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
-[; ;Structure.c: 207: GIE=0;
-"207
-[e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 208: TaskArray[actualPosition].currentAdd3=TOSU;
-"208
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
-[; ;Structure.c: 209: TaskArray[actualPosition].currentAdd2=TOSH;
-"209
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
-[; ;Structure.c: 210: TaskArray[actualPosition].currentAdd1=TOSL;
-"210
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
-[; ;Structure.c: 212: TaskArray[actualPosition].state=1;
-"212
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 1 `i `uc ]
-[; ;Structure.c: 213: TaskArray[actualPosition].DelayTime=delayms;
-"213
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 12 _delayms ]
-[; ;Structure.c: 214: TaskArray[actualPosition].Delayed=1;
-"214
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 13 -> -> 1 `i `uc ]
-[; ;Structure.c: 215: cont++;
+[; ;Structure.c: 215: INTCONbits.PEIE_GIEL=0;
 "215
-[e ++ _cont -> -> 1 `i `uc ]
-[; ;Structure.c: 216: T1CONbits.TMR1ON=1;
+[e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
+[; ;Structure.c: 216: GIE=0;
 "216
-[e = . . _T1CONbits 1 0 -> -> 1 `i `uc ]
-[; ;Structure.c: 217: TMR1IE=1;
+[e = _GIE -> -> 0 `i `b ]
+[; ;Structure.c: 217: TaskArray[actualPosition].currentAdd3=TOSU;
 "217
-[e = _TMR1IE -> -> 1 `i `b ]
-[; ;Structure.c: 218: STKPTR--;
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
+[; ;Structure.c: 218: TaskArray[actualPosition].currentAdd2=TOSH;
 "218
-[e -- _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 219: OSRun();
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
+[; ;Structure.c: 219: TaskArray[actualPosition].currentAdd1=TOSL;
 "219
-[e ( _OSRun ..  ]
-[; ;Structure.c: 220: }
-"220
-[e :UE 591 ]
-}
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
+[; ;Structure.c: 221: TaskArray[actualPosition].state=1;
+"221
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 1 `i `uc ]
+[; ;Structure.c: 222: TaskArray[actualPosition].DelayTime=delayms;
 "222
-[v _reductionTime `(v ~T0 @X0 1 ef ]
-{
-[; ;Structure.c: 222: void reductionTime(void){
-[e :U _reductionTime ]
-[f ]
-[; ;Structure.c: 223: for(i=0;i<11;i++){
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 12 _delayms ]
+[; ;Structure.c: 223: TaskArray[actualPosition].Delayed=1;
 "223
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 11 `i 593  ]
-[e $U 594  ]
-[e :U 593 ]
-{
-[; ;Structure.c: 224: if(TaskArray[i].Delayed==1){
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 13 -> -> 1 `i `uc ]
+[; ;Structure.c: 224: cont++;
 "224
-[e $ ! == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 13 `i -> 1 `i 596  ]
-{
-[; ;Structure.c: 225: TaskArray[i].DelayTime--;
+[e ++ _cont -> -> 1 `i `uc ]
+[; ;Structure.c: 225: T1CONbits.TMR1ON=1;
 "225
-[e -- . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 12 -> -> 1 `i `ui ]
-[; ;Structure.c: 226: if(TaskArray[i].DelayTime==0){
-"226
-[e $ ! == . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 12 -> -> 0 `i `ui 597  ]
-{
-[; ;Structure.c: 227: cont--;
-"227
-[e -- _cont -> -> 1 `i `uc ]
-[; ;Structure.c: 228: TaskArray[i].state=2;
-"228
-[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
-[; ;Structure.c: 229: TaskArray[i].Delayed=0;
-"229
-[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 13 -> -> 0 `i `uc ]
-"230
-}
-[e :U 597 ]
-"231
-}
-[e :U 596 ]
-"232
-}
-"223
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 11 `i 593  ]
-[e :U 594 ]
-"232
-}
-[; ;Structure.c: 230: }
-[; ;Structure.c: 231: }
-[; ;Structure.c: 232: }
-[; ;Structure.c: 233: if(cont==0){
-"233
-[e $ ! == -> _cont `i -> 0 `i 598  ]
-{
-[; ;Structure.c: 234: TMR1IE=0;
-"234
-[e = _TMR1IE -> -> 0 `i `b ]
-[; ;Structure.c: 235: T1CONbits.TMR1ON=1;
-"235
 [e = . . _T1CONbits 1 0 -> -> 1 `i `uc ]
-"236
-}
-[e :U 598 ]
-[; ;Structure.c: 236: }
-[; ;Structure.c: 238: TOS = &OSRun;
-"238
-[e = _TOS -> &U _OSRun `Vum ]
-[; ;Structure.c: 239: asm("RETFIE");
-"239
-[; <" RETFIE ;# ">
-[; ;Structure.c: 241: }
-"241
+[; ;Structure.c: 226: TMR1IE=1;
+"226
+[e = _TMR1IE -> -> 1 `i `b ]
+[; ;Structure.c: 227: STKPTR--;
+"227
+[e -- _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 228: OSRun();
+"228
+[e ( _OSRun ..  ]
+[; ;Structure.c: 229: }
+"229
 [e :UE 592 ]
 }
+"231
+[v _reductionTime `(v ~T0 @X0 1 ef ]
+{
+[; ;Structure.c: 231: void reductionTime(void){
+[e :U _reductionTime ]
+[f ]
+[; ;Structure.c: 232: for(i=0;i<11;i++){
+"232
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 11 `i 594  ]
+[e $U 595  ]
+[e :U 594 ]
+{
+[; ;Structure.c: 233: if(TaskArray[i].Delayed==1){
+"233
+[e $ ! == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 13 `i -> 1 `i 597  ]
+{
+[; ;Structure.c: 234: TaskArray[i].DelayTime--;
+"234
+[e -- . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 12 -> -> 1 `i `ui ]
+[; ;Structure.c: 235: if(TaskArray[i].DelayTime==0){
+"235
+[e $ ! == . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 12 -> -> 0 `i `ui 598  ]
+{
+[; ;Structure.c: 236: cont--;
+"236
+[e -- _cont -> -> 1 `i `uc ]
+[; ;Structure.c: 237: TaskArray[i].state=2;
+"237
+[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
+[; ;Structure.c: 238: TaskArray[i].Delayed=0;
+"238
+[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 13 -> -> 0 `i `uc ]
+"239
+}
+[e :U 598 ]
+"240
+}
+[e :U 597 ]
+"241
+}
+"232
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 11 `i 594  ]
+[e :U 595 ]
+"241
+}
+[; ;Structure.c: 239: }
+[; ;Structure.c: 240: }
+[; ;Structure.c: 241: }
+[; ;Structure.c: 242: if(cont==0){
+"242
+[e $ ! == -> _cont `i -> 0 `i 599  ]
+{
+[; ;Structure.c: 243: TMR1IE=0;
 "243
+[e = _TMR1IE -> -> 0 `i `b ]
+[; ;Structure.c: 244: T1CONbits.TMR1ON=1;
+"244
+[e = . . _T1CONbits 1 0 -> -> 1 `i `uc ]
+"245
+}
+[e :U 599 ]
+[; ;Structure.c: 245: }
+[; ;Structure.c: 247: TOS = &OSRun;
+"247
+[e = _TOS -> &U _OSRun `Vum ]
+[; ;Structure.c: 248: asm("RETFIE");
+"248
+[; <" RETFIE ;# ">
+[; ;Structure.c: 250: }
+"250
+[e :UE 593 ]
+}
+"252
 [v _saveInterruptedState `(v ~T0 @X0 1 ef ]
 {
-[; ;Structure.c: 243: void saveInterruptedState(){
+[; ;Structure.c: 252: void saveInterruptedState(){
 [e :U _saveInterruptedState ]
 [f ]
-[; ;Structure.c: 248: TaskArray[actualPosition].backupWreg = s_WREGBackup;
-"248
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 10 _s_WREGBackup ]
-[; ;Structure.c: 249: TaskArray[actualPosition].backupStatus = s_STATUSBackup;
-"249
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 9 _s_STATUSBackup ]
-[; ;Structure.c: 250: TaskArray[actualPosition].backupBsr = s_BSRBackup;
-"250
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 11 _s_BSRBackup ]
-[; ;Structure.c: 253: TaskArray[actualPosition].state = 3;
-"253
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 3 `i `uc ]
-[; ;Structure.c: 254: STKPTR--;
-"254
-[e -- _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 255: TaskArray[actualPosition].currentAdd3 = TOSU;
-"255
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
-[; ;Structure.c: 256: TaskArray[actualPosition].currentAdd2 = TOSH;
-"256
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
-[; ;Structure.c: 257: TaskArray[actualPosition].currentAdd1 = TOSL;
+[; ;Structure.c: 257: TaskArray[actualPosition].backupWreg = s_WREGBackup;
 "257
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
-[; ;Structure.c: 258: STKPTR++;
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 10 _s_WREGBackup ]
+[; ;Structure.c: 258: TaskArray[actualPosition].backupStatus = s_STATUSBackup;
 "258
-[e ++ _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 260: }
-"260
-[e :UE 599 ]
-}
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 9 _s_STATUSBackup ]
+[; ;Structure.c: 259: TaskArray[actualPosition].backupBsr = s_BSRBackup;
+"259
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 11 _s_BSRBackup ]
+[; ;Structure.c: 262: TaskArray[actualPosition].state = 3;
 "262
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 3 `i `uc ]
+[; ;Structure.c: 263: STKPTR--;
+"263
+[e -- _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 264: TaskArray[actualPosition].currentAdd3 = TOSU;
+"264
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
+[; ;Structure.c: 265: TaskArray[actualPosition].currentAdd2 = TOSH;
+"265
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
+[; ;Structure.c: 266: TaskArray[actualPosition].currentAdd1 = TOSL;
+"266
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
+[; ;Structure.c: 267: STKPTR++;
+"267
+[e ++ _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 269: }
+"269
+[e :UE 600 ]
+}
+"271
 [v _xTaskCreate `(v ~T0 @X0 1 ef3`ul`uc`uc ]
 {
-[; ;Structure.c: 262: void xTaskCreate(unsigned long pvTaskCode, unsigned char Id, unsigned char Prior){
+[; ;Structure.c: 271: void xTaskCreate(unsigned long pvTaskCode, unsigned char Id, unsigned char Prior){
 [e :U _xTaskCreate ]
 [v _pvTaskCode `ul ~T0 @X0 1 r1 ]
 [v _Id `uc ~T0 @X0 1 r2 ]
 [v _Prior `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;Structure.c: 263: INTCONbits.PEIE_GIEL=0;
-"263
-[e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
-[; ;Structure.c: 264: GIE=0;
-"264
-[e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 266: TaskArray[actualPosition].currentAdd3=TOSU;
-"266
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
-[; ;Structure.c: 267: TaskArray[actualPosition].currentAdd2=TOSH;
-"267
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
-[; ;Structure.c: 268: TaskArray[actualPosition].currentAdd1=TOSL;
-"268
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
-[; ;Structure.c: 270: taskPosition=Id;
-"270
-[e = _taskPosition _Id ]
-[; ;Structure.c: 271: TaskArray[taskPosition].Id=Id;
-"271
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 4 _Id ]
-[; ;Structure.c: 272: TaskArray[taskPosition].state=2;
+[; ;Structure.c: 272: INTCONbits.PEIE_GIEL=0;
 "272
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
-[; ;Structure.c: 273: TaskArray[taskPosition].Add3=(pvTaskCode & 0x00ff0000) >> 16;
+[e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
+[; ;Structure.c: 273: GIE=0;
 "273
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 2 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
-[; ;Structure.c: 274: TaskArray[taskPosition].Add2=(pvTaskCode & 0x0000ff00) >> 8;
-"274
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 1 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;Structure.c: 275: TaskArray[taskPosition].Add1=(pvTaskCode & 0x000000ff);
+[e = _GIE -> -> 0 `i `b ]
+[; ;Structure.c: 275: TaskArray[actualPosition].currentAdd3=TOSU;
 "275
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 0 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
-[; ;Structure.c: 276: TaskArray[taskPosition].currentAdd3=(pvTaskCode & 0x00ff0000) >> 16;
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 _TOSU ]
+[; ;Structure.c: 276: TaskArray[actualPosition].currentAdd2=TOSH;
 "276
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
-[; ;Structure.c: 277: TaskArray[taskPosition].currentAdd2=(pvTaskCode & 0x0000ff00) >> 8;
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 _TOSH ]
+[; ;Structure.c: 277: TaskArray[actualPosition].currentAdd1=TOSL;
 "277
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;Structure.c: 278: TaskArray[taskPosition].currentAdd1=(pvTaskCode & 0x000000ff);
-"278
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
-[; ;Structure.c: 279: TaskArray[taskPosition].Priority=Prior;
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 _TOSL ]
+[; ;Structure.c: 279: taskPosition=Id;
 "279
-[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 5 _Prior ]
-[; ;Structure.c: 283: STKPTR--;
+[e = _taskPosition _Id ]
+[; ;Structure.c: 280: TaskArray[taskPosition].Id=Id;
+"280
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 4 _Id ]
+[; ;Structure.c: 281: TaskArray[taskPosition].state=2;
+"281
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
+[; ;Structure.c: 282: TaskArray[taskPosition].Add3=(pvTaskCode & 0x00ff0000) >> 16;
+"282
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 2 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
+[; ;Structure.c: 283: TaskArray[taskPosition].Add2=(pvTaskCode & 0x0000ff00) >> 8;
 "283
-[e -- _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 284: OSRun();
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 1 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
+[; ;Structure.c: 284: TaskArray[taskPosition].Add1=(pvTaskCode & 0x000000ff);
 "284
-[e ( _OSRun ..  ]
-[; ;Structure.c: 285: }
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 0 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
+[; ;Structure.c: 285: TaskArray[taskPosition].currentAdd3=(pvTaskCode & 0x00ff0000) >> 16;
 "285
-[e :UE 600 ]
-}
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 8 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
+[; ;Structure.c: 286: TaskArray[taskPosition].currentAdd2=(pvTaskCode & 0x0000ff00) >> 8;
+"286
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 7 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
+[; ;Structure.c: 287: TaskArray[taskPosition].currentAdd1=(pvTaskCode & 0x000000ff);
 "287
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 6 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
+[; ;Structure.c: 288: TaskArray[taskPosition].Priority=Prior;
+"288
+[e = . *U + &U _TaskArray * -> _taskPosition `ux -> -> # *U &U _TaskArray `ui `ux 5 _Prior ]
+[; ;Structure.c: 292: STKPTR--;
+"292
+[e -- _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 293: OSRun();
+"293
+[e ( _OSRun ..  ]
+[; ;Structure.c: 294: }
+"294
+[e :UE 601 ]
+}
+"296
 [v _xInterruptTaskCreate `(v ~T0 @X0 1 ef3`ul`uc`uc ]
 {
-[; ;Structure.c: 287: void xInterruptTaskCreate(unsigned long pvTaskCode, unsigned char Id, unsigned char Prior){
+[; ;Structure.c: 296: void xInterruptTaskCreate(unsigned long pvTaskCode, unsigned char Id, unsigned char Prior){
 [e :U _xInterruptTaskCreate ]
 [v _pvTaskCode `ul ~T0 @X0 1 r1 ]
 [v _Id `uc ~T0 @X0 1 r2 ]
 [v _Prior `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;Structure.c: 288: INTCONbits.PEIE_GIEL=0;
-"288
+[; ;Structure.c: 297: INTCONbits.PEIE_GIEL=0;
+"297
 [e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
-[; ;Structure.c: 289: GIE=0;
-"289
-[e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 298: TaskArray[Id].Id=Id;
+[; ;Structure.c: 298: GIE=0;
 "298
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 4 _Id ]
-[; ;Structure.c: 299: TaskArray[Id].state=2;
-"299
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
-[; ;Structure.c: 300: TaskArray[Id].Add3=(pvTaskCode & 0x00ff0000) >> 16;
-"300
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 2 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
-[; ;Structure.c: 301: TaskArray[Id].Add2=(pvTaskCode & 0x0000ff00) >> 8;
-"301
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 1 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;Structure.c: 302: TaskArray[Id].Add1=(pvTaskCode & 0x000000ff);
-"302
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 0 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
-[; ;Structure.c: 303: TaskArray[Id].currentAdd3=(pvTaskCode & 0x00ff0000) >> 16;
-"303
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 8 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
-[; ;Structure.c: 304: TaskArray[Id].currentAdd2=(pvTaskCode & 0x0000ff00) >> 8;
-"304
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 7 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
-[; ;Structure.c: 305: TaskArray[Id].currentAdd1=(pvTaskCode & 0x000000ff);
-"305
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 6 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
-[; ;Structure.c: 306: TaskArray[Id].Priority=Prior;
-"306
-[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 5 _Prior ]
-[; ;Structure.c: 313: TOS = &OSRun;
-"313
-[e = _TOS -> &U _OSRun `Vum ]
-[; ;Structure.c: 314: asm("RETFIE");
-"314
-[; <" RETFIE ;# ">
-[; ;Structure.c: 317: }
-"317
-[e :UE 601 ]
-}
-"320
-[v _vTaskDelete `(v ~T0 @X0 1 ef ]
-{
-[; ;Structure.c: 320: void vTaskDelete(void){
-[e :U _vTaskDelete ]
-[f ]
-[; ;Structure.c: 321: INTCONbits.PEIE_GIEL=0;
-"321
-[e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
-[; ;Structure.c: 322: GIE=0;
-"322
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 323: TaskArray[actualPosition].state=0;
+[; ;Structure.c: 307: TaskArray[Id].Id=Id;
+"307
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 4 _Id ]
+[; ;Structure.c: 308: TaskArray[Id].state=2;
+"308
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 2 `i `uc ]
+[; ;Structure.c: 309: TaskArray[Id].Add3=(pvTaskCode & 0x00ff0000) >> 16;
+"309
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 2 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
+[; ;Structure.c: 310: TaskArray[Id].Add2=(pvTaskCode & 0x0000ff00) >> 8;
+"310
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 1 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
+[; ;Structure.c: 311: TaskArray[Id].Add1=(pvTaskCode & 0x000000ff);
+"311
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 0 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
+[; ;Structure.c: 312: TaskArray[Id].currentAdd3=(pvTaskCode & 0x00ff0000) >> 16;
+"312
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 8 -> >> & _pvTaskCode -> -> 16711680 `l `ul -> 16 `i `uc ]
+[; ;Structure.c: 313: TaskArray[Id].currentAdd2=(pvTaskCode & 0x0000ff00) >> 8;
+"313
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 7 -> >> & _pvTaskCode -> -> 65280 `ui `ul -> 8 `i `uc ]
+[; ;Structure.c: 314: TaskArray[Id].currentAdd1=(pvTaskCode & 0x000000ff);
+"314
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 6 -> & _pvTaskCode -> -> -> 255 `i `l `ul `uc ]
+[; ;Structure.c: 315: TaskArray[Id].Priority=Prior;
+"315
+[e = . *U + &U _TaskArray * -> _Id `ux -> -> # *U &U _TaskArray `ui `ux 5 _Prior ]
+[; ;Structure.c: 322: TOS = &OSRun;
+"322
+[e = _TOS -> &U _OSRun `Vum ]
+[; ;Structure.c: 323: asm("RETFIE");
 "323
-[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 0 `i `uc ]
-[; ;Structure.c: 326: STKPTR--;
+[; <" RETFIE ;# ">
+[; ;Structure.c: 326: }
 "326
-[e -- _STKPTR -> -> 1 `i `uc ]
-[; ;Structure.c: 327: OSRun();
-"327
-[e ( _OSRun ..  ]
-[; ;Structure.c: 332: }
-"332
 [e :UE 602 ]
 }
-"334
-[v _OSInit `(v ~T0 @X0 1 ef ]
+"329
+[v _vTaskDelete `(v ~T0 @X0 1 ef ]
 {
-[; ;Structure.c: 334: void OSInit(){
-[e :U _OSInit ]
+[; ;Structure.c: 329: void vTaskDelete(void){
+[e :U _vTaskDelete ]
 [f ]
-[; ;Structure.c: 335: INTCONbits.PEIE_GIEL=0;
-"335
+[; ;Structure.c: 330: INTCONbits.PEIE_GIEL=0;
+"330
 [e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
-[; ;Structure.c: 336: GIE=0;
-"336
+[; ;Structure.c: 331: GIE=0;
+"331
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 337: for(i=0;i<11 ; i++){
-"337
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 11 `i 604  ]
-[e $U 605  ]
-[e :U 604 ]
-{
-[; ;Structure.c: 338: TaskArray[i].Priority=255;
-"338
-[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 5 -> -> 255 `i `uc ]
-[; ;Structure.c: 339: TaskArray[i].Id=i;
-"339
-[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 4 _i ]
-[; ;Structure.c: 340: TaskArray[i].state=0;
-"340
-[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 0 `i `uc ]
-[; ;Structure.c: 341: MailBoxArray[i].Available=0;
+[; ;Structure.c: 332: TaskArray[actualPosition].state=0;
+"332
+[e = . *U + &U _TaskArray * -> _actualPosition `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 0 `i `uc ]
+[; ;Structure.c: 335: STKPTR--;
+"335
+[e -- _STKPTR -> -> 1 `i `uc ]
+[; ;Structure.c: 336: OSRun();
+"336
+[e ( _OSRun ..  ]
+[; ;Structure.c: 341: }
 "341
-[e = . *U + &U _MailBoxArray * -> _i `ux -> -> # *U &U _MailBoxArray `ui `ux 2 -> -> 0 `i `uc ]
-[; ;Structure.c: 342: MailBoxArray[i].Connected=0;
-"342
-[e = . *U + &U _MailBoxArray * -> _i `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 0 `i `uc ]
-"343
-}
-"337
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 11 `i 604  ]
-[e :U 605 ]
-"343
-}
-[; ;Structure.c: 343: }
-[; ;Structure.c: 345: OSCCONbits.IDLEN=0;
-"345
-[e = . . _OSCCONbits 0 4 -> -> 0 `i `uc ]
-[; ;Structure.c: 346: OSCCONbits.IRCF2=1;
-"346
-[e = . . _OSCCONbits 1 6 -> -> 1 `i `uc ]
-[; ;Structure.c: 347: OSCCONbits.IRCF1=1;
-"347
-[e = . . _OSCCONbits 1 5 -> -> 1 `i `uc ]
-[; ;Structure.c: 348: OSCCONbits.IRCF0=1;
-"348
-[e = . . _OSCCONbits 1 4 -> -> 1 `i `uc ]
-[; ;Structure.c: 349: OSCCONbits.OSTS=0;
-"349
-[e = . . _OSCCONbits 0 2 -> -> 0 `i `uc ]
-[; ;Structure.c: 350: OSCCONbits.IOFS=1;
-"350
-[e = . . _OSCCONbits 0 1 -> -> 1 `i `uc ]
-[; ;Structure.c: 351: OSCCONbits.SCS1=1;
-"351
-[e = . . _OSCCONbits 1 1 -> -> 1 `i `uc ]
-[; ;Structure.c: 352: OSCCONbits.SCS0=1;
-"352
-[e = . . _OSCCONbits 1 0 -> -> 1 `i `uc ]
-[; ;Structure.c: 366: T1CON = 0;
-"366
-[e = _T1CON -> -> 0 `i `uc ]
-[; ;Structure.c: 367: T1CONbits.RD16=1;
-"367
-[e = . . _T1CONbits 1 6 -> -> 1 `i `uc ]
-[; ;Structure.c: 368: T1CONbits.T1RUN=0;
-"368
-[e = . . _T1CONbits 1 5 -> -> 0 `i `uc ]
-[; ;Structure.c: 369: T1CONbits.T1CKPS1= 0;
-"369
-[e = . . _T1CONbits 2 4 -> -> 0 `i `uc ]
-[; ;Structure.c: 370: T1CONbits.T1CKPS0= 0;
-"370
-[e = . . _T1CONbits 2 3 -> -> 0 `i `uc ]
-[; ;Structure.c: 371: T1CONbits.T1OSCEN=0;
-"371
-[e = . . _T1CONbits 1 3 -> -> 0 `i `uc ]
-[; ;Structure.c: 372: T1CONbits.T1SYNC=1;
-"372
-[e = . . _T1CONbits 2 1 -> -> 1 `i `uc ]
-[; ;Structure.c: 373: T1CONbits.TMR1CS=0;
-"373
-[e = . . _T1CONbits 1 1 -> -> 0 `i `uc ]
-[; ;Structure.c: 375: TMR1H = 0xFA;
-"375
-[e = _TMR1H -> -> 250 `i `uc ]
-[; ;Structure.c: 376: TMR1L = 0x00;
-"376
-[e = _TMR1L -> -> 0 `i `uc ]
-[; ;Structure.c: 382: PIR1bits.TMR1IF = 0;
-"382
-[e = . . _PIR1bits 0 0 -> -> 0 `i `uc ]
-[; ;Structure.c: 383: PIE1bits.TMR1IE = 1;
-"383
-[e = . . _PIE1bits 0 0 -> -> 1 `i `uc ]
-[; ;Structure.c: 386: }
-"386
 [e :UE 603 ]
 }
-"389
-[v _OSRun `(v ~T0 @X0 1 ef ]
+"343
+[v _OSInit `(v ~T0 @X0 1 ef ]
 {
-[; ;Structure.c: 389: void OSRun(void){
-[e :U _OSRun ]
+[; ;Structure.c: 343: void OSInit(){
+[e :U _OSInit ]
 [f ]
-[; ;Structure.c: 390: INTCONbits.PEIE_GIEL=0;
-"390
+[; ;Structure.c: 344: INTCONbits.PEIE_GIEL=0;
+"344
 [e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
-[; ;Structure.c: 391: GIE=0;
-"391
+[; ;Structure.c: 345: GIE=0;
+"345
 [e = _GIE -> -> 0 `i `b ]
-[; ;Structure.c: 392: index = 10;
-"392
-[e = _index -> -> 10 `i `uc ]
-[; ;Structure.c: 393: minPrior = 255;
-"393
-[e = _minPrior -> -> 255 `i `uc ]
-[; ;Structure.c: 394: if(schedulerStatus == 1){
-"394
-[e $ ! == -> _schedulerStatus `i -> 1 `i 608  ]
-{
-[; ;Structure.c: 395: for(i=0;i<11 ; i++){
-"395
+[; ;Structure.c: 346: for(i=0;i<11 ; i++){
+"346
 {
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 11 `i 609  ]
-[e $U 610  ]
-[e :U 609 ]
+[e $ < -> _i `i -> 11 `i 605  ]
+[e $U 606  ]
+[e :U 605 ]
 {
-[; ;Structure.c: 396: if(TaskArray[i].Priority < minPrior && (TaskArray[i].state==2 || TaskArray[i].state==4 || TaskArray[i].state==3)){
-"396
-[e $ ! && < -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 5 `i -> _minPrior `i || || == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 2 `i == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 4 `i == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 3 `i 612  ]
-{
-[; ;Structure.c: 398: index=i;
-"398
-[e = _index _i ]
-[; ;Structure.c: 399: minPrior = TaskArray[index].Priority;
-"399
-[e = _minPrior . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 5 ]
-"400
+[; ;Structure.c: 347: TaskArray[i].Priority=255;
+"347
+[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 5 -> -> 255 `i `uc ]
+[; ;Structure.c: 348: TaskArray[i].Id=i;
+"348
+[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 4 _i ]
+[; ;Structure.c: 349: TaskArray[i].state=0;
+"349
+[e = . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 0 `i `uc ]
+[; ;Structure.c: 350: MailBoxArray[i].Available=0;
+"350
+[e = . *U + &U _MailBoxArray * -> _i `ux -> -> # *U &U _MailBoxArray `ui `ux 2 -> -> 0 `i `uc ]
+[; ;Structure.c: 351: MailBoxArray[i].Connected=0;
+"351
+[e = . *U + &U _MailBoxArray * -> _i `ux -> -> # *U &U _MailBoxArray `ui `ux 6 -> -> 0 `i `uc ]
+"352
 }
-[e :U 612 ]
-"401
-}
-"395
+"346
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 11 `i 609  ]
-[e :U 610 ]
-"401
+[e $ < -> _i `i -> 11 `i 605  ]
+[e :U 606 ]
+"352
 }
-[; ;Structure.c: 400: }
-[; ;Structure.c: 401: }
-[; ;Structure.c: 408: TaskArray[index].state=4;
-"408
-[e = . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 4 `i `uc ]
-[; ;Structure.c: 410: actualPosition=index;
-"410
-[e = _actualPosition _index ]
-[; ;Structure.c: 413: TOSH = TaskArray[index].currentAdd2;
-"413
-[e = _TOSH . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 7 ]
-[; ;Structure.c: 414: TOSU = TaskArray[index].currentAdd3;
-"414
-[e = _TOSU . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 8 ]
-[; ;Structure.c: 415: TOSL = TaskArray[index].currentAdd1;
-"415
-[e = _TOSL . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 6 ]
-[; ;Structure.c: 417: if(TaskArray[index].state==3){
-"417
-[e $ ! == -> . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 3 `i 613  ]
+[; ;Structure.c: 352: }
+[; ;Structure.c: 354: OSCCONbits.IDLEN=0;
+"354
+[e = . . _OSCCONbits 0 4 -> -> 0 `i `uc ]
+[; ;Structure.c: 355: OSCCONbits.IRCF2=1;
+"355
+[e = . . _OSCCONbits 1 6 -> -> 1 `i `uc ]
+[; ;Structure.c: 356: OSCCONbits.IRCF1=1;
+"356
+[e = . . _OSCCONbits 1 5 -> -> 1 `i `uc ]
+[; ;Structure.c: 357: OSCCONbits.IRCF0=1;
+"357
+[e = . . _OSCCONbits 1 4 -> -> 1 `i `uc ]
+[; ;Structure.c: 358: OSCCONbits.OSTS=0;
+"358
+[e = . . _OSCCONbits 0 2 -> -> 0 `i `uc ]
+[; ;Structure.c: 359: OSCCONbits.IOFS=1;
+"359
+[e = . . _OSCCONbits 0 1 -> -> 1 `i `uc ]
+[; ;Structure.c: 360: OSCCONbits.SCS1=1;
+"360
+[e = . . _OSCCONbits 1 1 -> -> 1 `i `uc ]
+[; ;Structure.c: 361: OSCCONbits.SCS0=1;
+"361
+[e = . . _OSCCONbits 1 0 -> -> 1 `i `uc ]
+[; ;Structure.c: 375: T1CON = 0;
+"375
+[e = _T1CON -> -> 0 `i `uc ]
+[; ;Structure.c: 376: T1CONbits.RD16=1;
+"376
+[e = . . _T1CONbits 1 6 -> -> 1 `i `uc ]
+[; ;Structure.c: 377: T1CONbits.T1RUN=0;
+"377
+[e = . . _T1CONbits 1 5 -> -> 0 `i `uc ]
+[; ;Structure.c: 378: T1CONbits.T1CKPS1= 0;
+"378
+[e = . . _T1CONbits 2 4 -> -> 0 `i `uc ]
+[; ;Structure.c: 379: T1CONbits.T1CKPS0= 0;
+"379
+[e = . . _T1CONbits 2 3 -> -> 0 `i `uc ]
+[; ;Structure.c: 380: T1CONbits.T1OSCEN=0;
+"380
+[e = . . _T1CONbits 1 3 -> -> 0 `i `uc ]
+[; ;Structure.c: 381: T1CONbits.T1SYNC=1;
+"381
+[e = . . _T1CONbits 2 1 -> -> 1 `i `uc ]
+[; ;Structure.c: 382: T1CONbits.TMR1CS=0;
+"382
+[e = . . _T1CONbits 1 1 -> -> 0 `i `uc ]
+[; ;Structure.c: 384: TMR1H = 0xFA;
+"384
+[e = _TMR1H -> -> 250 `i `uc ]
+[; ;Structure.c: 385: TMR1L = 0x00;
+"385
+[e = _TMR1L -> -> 0 `i `uc ]
+[; ;Structure.c: 391: PIR1bits.TMR1IF = 0;
+"391
+[e = . . _PIR1bits 0 0 -> -> 0 `i `uc ]
+[; ;Structure.c: 392: PIE1bits.TMR1IE = 1;
+"392
+[e = . . _PIE1bits 0 0 -> -> 1 `i `uc ]
+[; ;Structure.c: 395: }
+"395
+[e :UE 604 ]
+}
+"398
+[v _OSRun `(v ~T0 @X0 1 ef ]
 {
-[; ;Structure.c: 418: STATUS = TaskArray[index].backupStatus;
-"418
-[e = _STATUS . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 9 ]
-[; ;Structure.c: 419: BSR = TaskArray[index].backupBsr;
-"419
-[e = _BSR . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 11 ]
-[; ;Structure.c: 420: WREG = TaskArray[index].backupWreg;
-"420
-[e = _WREG . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 10 ]
-"421
+[; ;Structure.c: 398: void OSRun(void){
+[e :U _OSRun ]
+[f ]
+[; ;Structure.c: 399: INTCONbits.PEIE_GIEL=0;
+"399
+[e = . . _INTCONbits 0 6 -> -> 0 `i `uc ]
+[; ;Structure.c: 400: GIE=0;
+"400
+[e = _GIE -> -> 0 `i `b ]
+[; ;Structure.c: 401: index = 10;
+"401
+[e = _index -> -> 10 `i `uc ]
+[; ;Structure.c: 402: minPrior = 255;
+"402
+[e = _minPrior -> -> 255 `i `uc ]
+[; ;Structure.c: 403: if(schedulerStatus == 1){
+"403
+[e $ ! == -> _schedulerStatus `i -> 1 `i 609  ]
+{
+[; ;Structure.c: 404: for(i=0;i<11 ; i++){
+"404
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 11 `i 610  ]
+[e $U 611  ]
+[e :U 610 ]
+{
+[; ;Structure.c: 405: if(TaskArray[i].Priority < minPrior && (TaskArray[i].state==2 || TaskArray[i].state==4 || TaskArray[i].state==3)){
+"405
+[e $ ! && < -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 5 `i -> _minPrior `i || || == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 2 `i == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 4 `i == -> . *U + &U _TaskArray * -> _i `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 3 `i 613  ]
+{
+[; ;Structure.c: 407: index=i;
+"407
+[e = _index _i ]
+[; ;Structure.c: 408: minPrior = TaskArray[index].Priority;
+"408
+[e = _minPrior . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 5 ]
+"409
 }
 [e :U 613 ]
-[; ;Structure.c: 421: }
-[; ;Structure.c: 422: INTCONbits.PEIE_GIEL=1;
+"410
+}
+"404
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 11 `i 610  ]
+[e :U 611 ]
+"410
+}
+[; ;Structure.c: 409: }
+[; ;Structure.c: 410: }
+[; ;Structure.c: 417: TaskArray[index].state=4;
+"417
+[e = . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 3 -> -> 4 `i `uc ]
+[; ;Structure.c: 419: actualPosition=index;
+"419
+[e = _actualPosition _index ]
+[; ;Structure.c: 422: TOSH = TaskArray[index].currentAdd2;
 "422
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;Structure.c: 423: GIE = 1;
+[e = _TOSH . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 7 ]
+[; ;Structure.c: 423: TOSU = TaskArray[index].currentAdd3;
 "423
-[e = _GIE -> -> 1 `i `b ]
+[e = _TOSU . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 8 ]
+[; ;Structure.c: 424: TOSL = TaskArray[index].currentAdd1;
+"424
+[e = _TOSL . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 6 ]
+[; ;Structure.c: 426: if(TaskArray[index].state==3){
+"426
+[e $ ! == -> . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 3 `i -> 3 `i 614  ]
+{
+[; ;Structure.c: 427: STATUS = TaskArray[index].backupStatus;
+"427
+[e = _STATUS . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 9 ]
+[; ;Structure.c: 428: BSR = TaskArray[index].backupBsr;
+"428
+[e = _BSR . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 11 ]
+[; ;Structure.c: 429: WREG = TaskArray[index].backupWreg;
+"429
+[e = _WREG . *U + &U _TaskArray * -> _index `ux -> -> # *U &U _TaskArray `ui `ux 10 ]
 "430
 }
-[e :U 608 ]
+[e :U 614 ]
 [; ;Structure.c: 430: }
-[; ;Structure.c: 431: }
+[; ;Structure.c: 431: INTCONbits.PEIE_GIEL=1;
 "431
-[e :UE 607 ]
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;Structure.c: 432: GIE = 1;
+"432
+[e = _GIE -> -> 1 `i `b ]
+"439
+}
+[e :U 609 ]
+[; ;Structure.c: 439: }
+[; ;Structure.c: 440: }
+"440
+[e :UE 608 ]
 }

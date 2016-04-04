@@ -103,9 +103,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _mailBox_init_conection `(v ~T0 @X0 0 ef2`uc`uc ]
 "107
 [v _ReadingMailBox `(v ~T0 @X0 0 ef2`uc`*ul ]
+"115
+[v _mailBoxHasData `(uc ~T0 @X0 0 ef1`uc ]
 "10195 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [v _LATB3 `Vb ~T0 @X0 0 e@31827 ]
-"145 main.c
+"153 main.c
 [v _saveInterruptedState `(i ~T0 @X0 0 ef ]
 "10809 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [v _TMR1IE `Vb ~T0 @X0 0 e@31976 ]
@@ -115,7 +117,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TMR1H `Vuc ~T0 @X0 0 e@4047 ]
 "8133
 [v _TMR1L `Vuc ~T0 @X0 0 e@4046 ]
-"150 main.c
+"158 main.c
 [v _reductionTime `(i ~T0 @X0 0 ef ]
 "10113 C:\Program Files (x86)\Microchip\xc8\v1.35\include\pic18f4550.h
 [v _INT1IE `Vb ~T0 @X0 0 e@32643 ]
@@ -4318,24 +4320,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Structure.h: 109: void waitForBuffer(void);
 [; ;Structure.h: 111: void DoneWritting(unsigned char reader);
 [; ;Structure.h: 113: void DoneReading(unsigned char writter);
-"116 Structure.h
+[; ;Structure.h: 115: char mailBoxHasData(char mailboxIndex);
+"117 Structure.h
 [v _s_STATUSBackup `uc ~T0 @X0 1 s ]
 [i _s_STATUSBackup
 -> -> 255 `i `uc
 ]
-[; ;Structure.h: 116: static char s_STATUSBackup=255;
-"117
+[; ;Structure.h: 117: static char s_STATUSBackup=255;
+"118
 [v _s_WREGBackup `uc ~T0 @X0 1 s ]
 [i _s_WREGBackup
 -> -> 255 `i `uc
 ]
-[; ;Structure.h: 117: static char s_WREGBackup=255;
-"118
+[; ;Structure.h: 118: static char s_WREGBackup=255;
+"119
 [v _s_BSRBackup `uc ~T0 @X0 1 s ]
 [i _s_BSRBackup
 -> -> 255 `i `uc
 ]
-[; ;Structure.h: 118: static char s_BSRBackup=255;
+[; ;Structure.h: 119: static char s_BSRBackup=255;
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -4586,204 +4589,224 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 112: WritingMailBox(valor1,0);
 "112
 [e ( _WritingMailBox (2 , _valor1 -> -> 0 `i `uc ]
-[; ;main.c: 113: INTCON3bits.INT1IF = 0;
+[; ;main.c: 113: valor1 = 0;
 "113
-[e = . . _INTCON3bits 0 0 -> -> 0 `i `uc ]
-[; ;main.c: 114: INTCON3bits.INT1IE = 1;
+[e = _valor1 -> -> 0 `i `uc ]
+[; ;main.c: 114: INTCON3bits.INT1IF = 0;
 "114
+[e = . . _INTCON3bits 0 0 -> -> 0 `i `uc ]
+[; ;main.c: 115: INTCON3bits.INT1IE = 1;
+"115
 [e = . . _INTCON3bits 0 3 -> -> 1 `i `uc ]
-[; ;main.c: 121: vTaskDelete();
-"121
-[e ( _vTaskDelete ..  ]
-[; ;main.c: 122: }
+[; ;main.c: 122: vTaskDelete();
 "122
+[e ( _vTaskDelete ..  ]
+[; ;main.c: 123: }
+"123
 [e :UE 560 ]
 }
-"124
+"125
 [v _PWM1 `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 124: void PWM1(void){
+[; ;main.c: 125: void PWM1(void){
 [e :U _PWM1 ]
 [f ]
-[; ;main.c: 126: mailBox_init_conection(0,1);
-"126
-[e ( _mailBox_init_conection (2 , -> -> 0 `i `uc -> -> 1 `i `uc ]
-[; ;main.c: 127: ReadingMailBox(1,y);
+[; ;main.c: 127: mailBox_init_conection(0,1);
 "127
-[e ( _ReadingMailBox (2 , -> -> 1 `i `uc -> _y `*ul ]
-[; ;main.c: 128: asm("nop");
+[e ( _mailBox_init_conection (2 , -> -> 0 `i `uc -> -> 1 `i `uc ]
+[; ;main.c: 128: ReadingMailBox(1,&y);
 "128
-[; <" nop ;# ">
-[; ;main.c: 129: dutyCycle1=y;
+[e ( _ReadingMailBox (2 , -> -> 1 `i `uc -> &U _y `*ul ]
+[; ;main.c: 129: asm("nop");
 "129
-[e = _dutyCycle1 -> _y `uc ]
-[; ;main.c: 130: while(1){
+[; <" nop ;# ">
+[; ;main.c: 130: dutyCycle1=y;
 "130
+[e = _dutyCycle1 -> _y `uc ]
+[; ;main.c: 131: while(1){
+"131
 [e :U 567 ]
 {
-[; ;main.c: 131: LATB3= 1;
-"131
-[e = _LATB3 -> -> 1 `i `b ]
-[; ;main.c: 135: vTaskDelay(dutyCycle1);
+[; ;main.c: 133: dutyCycle1=y;
+"133
+[e = _dutyCycle1 -> _y `uc ]
+[; ;main.c: 135: if( mailBoxHasData(0) ){
 "135
-[e ( _vTaskDelay (1 -> _dutyCycle1 `ui ]
-[; ;main.c: 137: LATB3= 0;
+[e $ ! != -> ( _mailBoxHasData (1 -> -> 0 `i `uc `i -> -> -> 0 `i `uc `i 569  ]
+{
+[; ;main.c: 136: ReadingMailBox(1,&y);
+"136
+[e ( _ReadingMailBox (2 , -> -> 1 `i `uc -> &U _y `*ul ]
+[; ;main.c: 137: dutyCycle1=y;
 "137
-[e = _LATB3 -> -> 0 `i `b ]
-[; ;main.c: 139: vTaskDelay(100-dutyCycle1);
+[e = _dutyCycle1 -> _y `uc ]
+"138
+}
+[e :U 569 ]
+[; ;main.c: 138: }
+[; ;main.c: 139: LATB3= 1;
 "139
+[e = _LATB3 -> -> 1 `i `b ]
+[; ;main.c: 143: vTaskDelay(dutyCycle1);
+"143
+[e ( _vTaskDelay (1 -> _dutyCycle1 `ui ]
+[; ;main.c: 145: LATB3= 0;
+"145
+[e = _LATB3 -> -> 0 `i `b ]
+[; ;main.c: 147: vTaskDelay(100-dutyCycle1);
+"147
 [e ( _vTaskDelay (1 -> - -> 100 `i -> _dutyCycle1 `i `ui ]
-"140
+"148
 }
 [e :U 566 ]
-"130
+"131
 [e $U 567  ]
 [e :U 568 ]
-[; ;main.c: 140: }
-[; ;main.c: 141: vTaskDelete();
-"141
+[; ;main.c: 148: }
+[; ;main.c: 149: vTaskDelete();
+"149
 [e ( _vTaskDelete ..  ]
-[; ;main.c: 142: }
-"142
+[; ;main.c: 150: }
+"150
 [e :UE 565 ]
 }
-[v F4557 `(v ~T0 @X0 1 tf ]
-"144
-[v _High_Priority_Interrupt `IHF4557 ~T0 @X0 1 e ]
+[v F4559 `(v ~T0 @X0 1 tf ]
+"152
+[v _High_Priority_Interrupt `IHF4559 ~T0 @X0 1 e ]
 {
-[; ;main.c: 144: void high_priority interrupt High_Priority_Interrupt(void){
+[; ;main.c: 152: void high_priority interrupt High_Priority_Interrupt(void){
 [e :U _High_Priority_Interrupt ]
 [f ]
-[; ;main.c: 145: saveInterruptedState();
-"145
+[; ;main.c: 153: saveInterruptedState();
+"153
 [e ( _saveInterruptedState ..  ]
-[; ;main.c: 146: if(TMR1IE && TMR1IF){
-"146
-[e $ ! && _TMR1IE _TMR1IF 570  ]
+[; ;main.c: 154: if(TMR1IE && TMR1IF){
+"154
+[e $ ! && _TMR1IE _TMR1IF 571  ]
 {
-[; ;main.c: 147: TMR1IF=0;
-"147
-[e = _TMR1IF -> -> 0 `i `b ]
-[; ;main.c: 148: TMR1H = 0xFA;
-"148
-[e = _TMR1H -> -> 250 `i `uc ]
-[; ;main.c: 149: TMR1L = 0x00;
-"149
-[e = _TMR1L -> -> 0 `i `uc ]
-[; ;main.c: 150: reductionTime();
-"150
-[e ( _reductionTime ..  ]
-"151
-}
-[e :U 570 ]
-[; ;main.c: 151: }
-[; ;main.c: 152: }
-"152
-[e :UE 569 ]
-}
-[v F4562 `(v ~T0 @X0 1 tf ]
+[; ;main.c: 155: TMR1IF=0;
 "155
-[v _Low_Priority_Interrupt `ILF4562 ~T0 @X0 1 e ]
+[e = _TMR1IF -> -> 0 `i `b ]
+[; ;main.c: 156: TMR1H = 0xFA;
+"156
+[e = _TMR1H -> -> 250 `i `uc ]
+[; ;main.c: 157: TMR1L = 0x00;
+"157
+[e = _TMR1L -> -> 0 `i `uc ]
+[; ;main.c: 158: reductionTime();
+"158
+[e ( _reductionTime ..  ]
+"159
+}
+[e :U 571 ]
+[; ;main.c: 159: }
+[; ;main.c: 160: }
+"160
+[e :UE 570 ]
+}
+[v F4564 `(v ~T0 @X0 1 tf ]
+"163
+[v _Low_Priority_Interrupt `ILF4564 ~T0 @X0 1 e ]
 {
-[; ;main.c: 155: void interrupt low_priority Low_Priority_Interrupt(void) {
+[; ;main.c: 163: void interrupt low_priority Low_Priority_Interrupt(void) {
 [e :U _Low_Priority_Interrupt ]
 [f ]
-[; ;main.c: 156: saveInterruptedState();
-"156
-[e ( _saveInterruptedState ..  ]
-[; ;main.c: 158: if(INT1IE && INT1IF){
-"158
-[e $ ! && _INT1IE _INT1IF 572  ]
-{
-[; ;main.c: 160: INT1IF = 0;
-"160
-[e = _INT1IF -> -> 0 `i `b ]
-[; ;main.c: 161: INT1IE = 0;
-"161
-[e = _INT1IE -> -> 0 `i `b ]
-[; ;main.c: 163: xInterruptTaskCreate(RX1,1,1);
-"163
-[e ( _xInterruptTaskCreate (3 , , -> &U _RX1 `ul -> -> 1 `i `uc -> -> 1 `i `uc ]
+[; ;main.c: 164: saveInterruptedState();
 "164
-}
-[e :U 572 ]
-[; ;main.c: 164: }
-[; ;main.c: 166: if(INT2IE && INT2IF){
+[e ( _saveInterruptedState ..  ]
+[; ;main.c: 166: if(INT1IE && INT1IF){
 "166
-[e $ ! && _INT2IE _INT2IF 573  ]
+[e $ ! && _INT1IE _INT1IF 573  ]
 {
-[; ;main.c: 167: INT2IF = 0;
-"167
-[e = _INT2IF -> -> 0 `i `b ]
-[; ;main.c: 168: INT2IE = 0;
+[; ;main.c: 168: INT1IF = 0;
 "168
-[e = _INT2IE -> -> 0 `i `b ]
-[; ;main.c: 169: asm("nop");
+[e = _INT1IF -> -> 0 `i `b ]
+[; ;main.c: 169: INT1IE = 0;
 "169
-[; <" nop ;# ">
+[e = _INT1IE -> -> 0 `i `b ]
+[; ;main.c: 171: xInterruptTaskCreate(RX1,1,1);
 "171
+[e ( _xInterruptTaskCreate (3 , , -> &U _RX1 `ul -> -> 1 `i `uc -> -> 1 `i `uc ]
+"172
 }
 [e :U 573 ]
-[; ;main.c: 171: }
-[; ;main.c: 174: }
+[; ;main.c: 172: }
+[; ;main.c: 174: if(INT2IE && INT2IF){
 "174
-[e :UE 571 ]
+[e $ ! && _INT2IE _INT2IF 574  ]
+{
+[; ;main.c: 175: INT2IF = 0;
+"175
+[e = _INT2IF -> -> 0 `i `b ]
+[; ;main.c: 176: INT2IE = 0;
+"176
+[e = _INT2IE -> -> 0 `i `b ]
+[; ;main.c: 177: asm("nop");
+"177
+[; <" nop ;# ">
+"179
 }
-"178
+[e :U 574 ]
+[; ;main.c: 179: }
+[; ;main.c: 182: }
+"182
+[e :UE 572 ]
+}
+"186
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 178: void main(void){
+[; ;main.c: 186: void main(void){
 [e :U _main ]
 [f ]
-[; ;main.c: 179: asm("nop");
-"179
-[; <" nop ;# ">
-[; ;main.c: 180: OSInit();
-"180
-[e ( _OSInit ..  ]
-[; ;main.c: 181: ports_Init();
-"181
-[e ( _ports_Init ..  ]
-[; ;main.c: 182: extInt();
-"182
-[e ( _extInt ..  ]
-[; ;main.c: 183: RCONbits.IPEN=1;
-"183
-[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-[; ;main.c: 184: INTCONbits.PEIE_GIEL=1;
-"184
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 185: INT1IF=0;
-"185
-[e = _INT1IF -> -> 0 `i `b ]
-[; ;main.c: 187: GIE=1;
+[; ;main.c: 187: asm("nop");
 "187
-[e = _GIE -> -> 1 `i `b ]
-[; ;main.c: 188: xTaskCreate(PWM1,0,1);
-"188
-[e ( _xTaskCreate (3 , , -> &U _PWM1 `ul -> -> 0 `i `uc -> -> 1 `i `uc ]
-[; ;main.c: 192: do{
-"192
-[e :U 577 ]
-{
-[; ;main.c: 193: asm("nop");
-"193
 [; <" nop ;# ">
-"194
-}
-[; ;main.c: 194: }while(1);
-[e $ != -> 1 `i -> 0 `i 577  ]
-[e :U 576 ]
-[; ;main.c: 196: RX1();
+[; ;main.c: 188: OSInit();
+"188
+[e ( _OSInit ..  ]
+[; ;main.c: 189: ports_Init();
+"189
+[e ( _ports_Init ..  ]
+[; ;main.c: 190: extInt();
+"190
+[e ( _extInt ..  ]
+[; ;main.c: 191: RCONbits.IPEN=1;
+"191
+[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
+[; ;main.c: 192: INTCONbits.PEIE_GIEL=1;
+"192
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;main.c: 193: INT1IF=0;
+"193
+[e = _INT1IF -> -> 0 `i `b ]
+[; ;main.c: 195: GIE=1;
+"195
+[e = _GIE -> -> 1 `i `b ]
+[; ;main.c: 196: xTaskCreate(PWM1,0,1);
 "196
-[e ( _RX1 ..  ]
-[; ;main.c: 197: PWM1();
-"197
-[e ( _PWM1 ..  ]
-[; ;main.c: 199: return;
-"199
-[e $UE 574  ]
-[; ;main.c: 200: }
+[e ( _xTaskCreate (3 , , -> &U _PWM1 `ul -> -> 0 `i `uc -> -> 1 `i `uc ]
+[; ;main.c: 200: do{
 "200
-[e :UE 574 ]
+[e :U 578 ]
+{
+[; ;main.c: 201: asm("nop");
+"201
+[; <" nop ;# ">
+"202
+}
+[; ;main.c: 202: }while(1);
+[e $ != -> 1 `i -> 0 `i 578  ]
+[e :U 577 ]
+[; ;main.c: 204: RX1();
+"204
+[e ( _RX1 ..  ]
+[; ;main.c: 205: PWM1();
+"205
+[e ( _PWM1 ..  ]
+[; ;main.c: 207: return;
+"207
+[e $UE 575  ]
+[; ;main.c: 208: }
+"208
+[e :UE 575 ]
 }

@@ -5418,6 +5418,7 @@ void DoneWritting(unsigned char reader);
 
 void DoneReading(unsigned char writter);
 
+char mailBoxHasData(char mailboxIndex);
 
 static char s_STATUSBackup=255;
 static char s_WREGBackup=255;
@@ -5587,20 +5588,28 @@ vTaskDelay(4);
 while(CN1--);
 vTaskDelay(4);
 WritingMailBox(valor1,0);
+valor1 = 0;
 INTCON3bits.INT1IF = 0;
 INTCON3bits.INT1IE = 1;
 
-# 121
+# 122
 vTaskDelete();
 }
 
 void PWM1(void){
 
 mailBox_init_conection(0,1);
-ReadingMailBox(1,y);
+ReadingMailBox(1,&y);
 asm("nop");
 dutyCycle1=y;
 while(1){
+
+dutyCycle1=y;
+
+if( mailBoxHasData(0) ){
+ReadingMailBox(1,&y);
+dutyCycle1=y;
+}
 LATB3= 1;
 
 

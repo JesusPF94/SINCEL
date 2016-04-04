@@ -5418,6 +5418,7 @@ void DoneWritting(unsigned char reader);
 
 void DoneReading(unsigned char writter);
 
+char mailBoxHasData(char mailboxIndex);
 
 static char s_STATUSBackup=255;
 static char s_WREGBackup=255;
@@ -5430,7 +5431,7 @@ static unsigned char schedulerAdd1=0;
 static unsigned char schedulerAdd2=0;
 static unsigned char schedulerAdd3=0;
 static unsigned char schedulerStatus = 1;
-
+static unsigned long *r_pointer;
 
 static unsigned char i;
 static unsigned char i_mic;
@@ -5474,11 +5475,14 @@ unsigned char Delayed;
 
 unsigned char WaitMessage;
 
+
 unsigned char MessageWritter;
 unsigned char MessageReader;
 unsigned char MessageData;
 unsigned char readInterruptedIndex;
 unsigned char writeInterruptedIndex;
+
+unsigned long *r_dataPTR;
 };
 
 struct Task TaskArray[11];
@@ -5512,7 +5516,10 @@ MailBoxArray[index_mic].Connected=1;
 }
 
 
-
+char mailBoxHasData(char mailboxIndex)
+{
+return MailBoxArray[mailboxIndex].Available ;
+}
 void WritingMailBox(unsigned char data, unsigned char reader){
 GIE = 0;
 index_wmb=10;
@@ -5550,6 +5557,8 @@ OSRun();
 }
 void ReadingMailBox(unsigned char writter, unsigned long *r){
 GIE = 0;
+
+r_pointer = r;
 for(i_rmb=0;i_rmb<11;i_rmb++){
 if(MailBoxArray[i_rmb].Reader==actualPosition &&
 MailBoxArray[i_rmb].Writer==writter){
@@ -5567,8 +5576,9 @@ MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Available=0;
 TaskArray[actualPosition].MessageData = MailBoxArray[ TaskArray[actualPosition].readInterruptedIndex ].Data;
 i_rmb = TaskArray[actualPosition].readInterruptedIndex;
 
-*r=MailBoxArray[i_rmb].Data;
+asm("nop");
 
+*r_pointer = MailBoxArray[i_rmb].Data;
 
 if( (TaskArray[MailBoxArray[i_rmb].Writer].MessageReader == actualPosition) && TaskArray[ MailBoxArray[ i_rmb ].Writer ].state == 1 && TaskArray[ MailBoxArray[ i_rmb ].Writer].WaitMessage == 1){
 TaskArray[ MailBoxArray[ i_rmb ].Writer ].state = 2;
@@ -5712,7 +5722,7 @@ void xInterruptTaskCreate(unsigned long pvTaskCode, unsigned char Id, unsigned c
 INTCONbits.PEIE_GIEL=0;
 GIE=0;
 
-# 298
+# 307
 TaskArray[Id].Id=Id;
 TaskArray[Id].state=2;
 TaskArray[Id].Add3=(pvTaskCode & 0x00ff0000) >> 16;
@@ -5723,7 +5733,7 @@ TaskArray[Id].currentAdd2=(pvTaskCode & 0x0000ff00) >> 8;
 TaskArray[Id].currentAdd1=(pvTaskCode & 0x000000ff);
 TaskArray[Id].Priority=Prior;
 
-# 313
+# 322
 TOS = &OSRun;
 asm("RETFIE");
 
@@ -5765,7 +5775,7 @@ OSCCONbits.IOFS=1;
 OSCCONbits.SCS1=1;
 OSCCONbits.SCS0=1;
 
-# 366
+# 375
 T1CON = 0;
 T1CONbits.RD16=1;
 T1CONbits.T1RUN=0;
@@ -5778,7 +5788,7 @@ T1CONbits.TMR1CS=0;
 TMR1H = 0xFA;
 TMR1L = 0x00;
 
-# 382
+# 391
 PIR1bits.TMR1IF = 0;
 PIE1bits.TMR1IE = 1;
 
@@ -5800,7 +5810,7 @@ minPrior = TaskArray[index].Priority;
 }
 }
 
-# 408
+# 417
 TaskArray[index].state=4;
 
 actualPosition=index;
@@ -5818,7 +5828,7 @@ WREG = TaskArray[index].backupWreg;
 INTCONbits.PEIE_GIEL=1;
 GIE = 1;
 
-# 430
+# 439
 }
 }
 
