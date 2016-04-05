@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=2deabril.X
+PROJECTNAME=2deabrilconpointer.X
 
 # Active Configuration
 DEFAULTCONF=default
